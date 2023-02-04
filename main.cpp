@@ -15,6 +15,16 @@ using namespace std;
 #include <vector>
 #include <string>
 
+void help()
+{
+    cout<<"----------------------"<<endl;
+    cout<<"Command"<<endl;
+    cout<<"--------"<<endl;
+    cout<<"1)up=> move up"<<endl;cout<<"2)down=> move down"<<endl;cout<<"3)left=> move left"<<endl;cout<<"4)right=> move right"<<endl;
+    cout<<"help=> Show the user's command"<<endl;cout<<"5)save=> save the game"<<endl;cout<<"6)load=> loading the game"<<endl;cout<<"7)quit=> quit the game"<<endl;
+    cout<<"----------------------"<<endl;
+    
+}
 
 void gameboard(int rows, int columns, char characters[11], int numofzom)
 {
@@ -82,21 +92,38 @@ void gameboard(int rows, int columns, char characters[11], int numofzom)
     int lifeofzom[numofzom];
     int attackofzom[numofzom];
     int rangeofzom[numofzom];
- //   vector<int>zombie;
-    cout<<endl;
-    cout<<"Alien:"<<setw(12)<<"Life=> "<<alienhp<<"  Attack=>  "<<alienattack<<endl;
-    for (int m=1;m<numofzom+1;++m)
+    cout<<"-------------------------------------------------"<<endl;
+    cout << "Alien:" << setw(12) << "Life=> " << alienhp << "  Attack=> " <<alienattack << endl;
+    for (int m = 1; m < numofzom + 1; ++m)
     {
-        
-        zombielife= rand()% 200 +100;
-        zombieattack= rand()% 15 +5;
-        range= rand()% 5 +1;
-        cout<<"Zombie"<<m<<":  "<<"Life=> "<<zombielife<<setw(12)<<"Attack=> "<<zombieattack<<setw(12)<<"Range=> "<<range<<endl;
-        nameofzom[m]={m};
-        lifeofzom[m]={zombielife};
-        attackofzom[m]={zombieattack};
-        rangeofzom[m]={range};
 
+        zombielife = rand() % 200 + 100;
+        zombieattack = rand() % 15 + 5;
+        range = rand() % 5 + 1;
+        cout<<"-------------------------------------------------"<<endl;
+        cout << "Zombie" << m << ":  "
+             << "Life=> " << zombielife << setw(12) << "Attack=> " << zombieattack << setw(12) << "Range=> " << range << endl;
+       
+        nameofzom[m] = {m};
+        lifeofzom[m] = {zombielife};
+        attackofzom[m] = {zombieattack};
+        rangeofzom[m] = {range};
+    }
+    cout<<"--------------------------------------------------"<<endl;
+    string command;
+    cout<<"Please enter command=>";
+    cin>>command;
+    if (command =="help"){
+        help();
+        cout<<"Please enter to continue..."<<endl;
+        cin.ignore();
+        cin.ignore();
+        gameboard(rows, columns, characters,numofzom);
+    }
+    else if(command =="quit")
+    {
+        cout<<"Thank you for playing the game. Bye Bye";
+        exit(0);
     }
     
     
