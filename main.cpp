@@ -98,9 +98,7 @@ void gameboard(int rows, int columns, char characters[11], int numofzom)
         rangeofzom[m]={range};
 
     }
-    //To check does it store the values in array
-//   for(int j=1;j<numofzom;++j)
-//      cout<<nameofzom[j]<<','<<lifeofzom[j]<<","<<attackofzom[j]<<','<<rangeofzom[j]<<endl;
+    
     
     
 
