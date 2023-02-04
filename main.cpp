@@ -17,6 +17,7 @@ using namespace std;
 
 void help()
 {
+    //display user guide
     cout<<"----------------------"<<endl;
     cout<<"Command"<<endl;
     cout<<"--------"<<endl;
@@ -87,7 +88,7 @@ void gameboard(int rows, int columns, char characters[11], int numofzom)
     int zombielife;
     int zombieattack;
     int range;
-    
+    //Create some array to store data of zombie
     int nameofzom[numofzom];
     int lifeofzom[numofzom];
     int attackofzom[numofzom];
@@ -96,14 +97,15 @@ void gameboard(int rows, int columns, char characters[11], int numofzom)
     cout << "Alien:" << setw(12) << "Life=> " << alienhp << "  Attack=> " <<alienattack << endl;
     for (int m = 1; m < numofzom + 1; ++m)
     {
-
+        //Randomly assign zombie life,attack and range
         zombielife = rand() % 200 + 100;
         zombieattack = rand() % 15 + 5;
         range = rand() % 5 + 1;
         cout<<"-------------------------------------------------"<<endl;
+        //Display zombie number of life,attack and range
         cout << "Zombie" << m << ":  "
              << "Life=> " << zombielife << setw(12) << "Attack=> " << zombieattack << setw(12) << "Range=> " << range << endl;
-       
+       //Save the data in array
         nameofzom[m] = {m};
         lifeofzom[m] = {zombielife};
         attackofzom[m] = {zombieattack};
@@ -123,6 +125,7 @@ void gameboard(int rows, int columns, char characters[11], int numofzom)
     else if(command =="quit")
     {
         cout<<"Thank you for playing the game. Bye Bye";
+        //Terminate the game
         exit(0);
     }
     
@@ -202,5 +205,5 @@ int main()
         main();
     }
 
-    // pf::Pause();
+    
 }
