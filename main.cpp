@@ -37,6 +37,16 @@ void gameboard(int rows, int columns, char characters[11], int numofzom)
     // Seed the random number generator
     srand(time(0));
     
+    // array to store the coordinates of the zombies
+    int zombiesX[10], zombiesY[10];
+
+    //randomly assign the zombie on the board
+    for (int i = 0; i < m; i++)
+    {
+        zombiesX[i] = rand() % rows + 1;
+        zombiesY[i] = rand() % columns + 1;
+    }
+    
     // Print top row of "+" and "-"
     cout << setw(4) << " ";
     for (int i = 1; i <= columns; i++)
@@ -59,6 +69,14 @@ void gameboard(int rows, int columns, char characters[11], int numofzom)
             if (i == middleRow && j == middleColumn)
             {
                 c = 'A';
+            }
+            //to check if the zombie is in the current space
+            for (int k = 0; k < m; k++)
+            {
+                if (i == zombiesX[k] && j == zombiesY[k])
+                {
+                    c = k+1+'0';
+                }
             }
                
             cout << "|"
