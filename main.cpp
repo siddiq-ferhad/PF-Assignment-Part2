@@ -149,6 +149,7 @@ void commands(int rows,int columns, char characters[11], int zombie)
         cin.ignore();
         cin.ignore();
         gameboard(rows, columns, characters,zombie);
+        AZattributes(zombie);
         cout<<endl;
         commands(rows,columns,characters,zombie);
     }    
