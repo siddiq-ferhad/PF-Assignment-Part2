@@ -14,6 +14,7 @@ using namespace std;
 #include <cctype>
 #include <vector>
 #include <string>
+#include <fstream>
 
 void help()
 {
@@ -159,8 +160,21 @@ void commands(int rows,int columns, char characters[11], int zombie)
         //Terminate the game
         exit(0);
     }
-    
-    
+    else if (command =="save")
+    {
+        string filename;
+        cout << "Enter the file name to save the current game => ";
+        cin >> filename;
+        ofstream out(filename);
+        cout << "File saved successfully!" << endl;
+        cout << "------------------------" << endl;
+        cout << "Please enter to continue..." << endl;
+        cin.ignore();
+        cin.ignore();
+        gameboard(rows, columns, characters, zombie);
+        cout << endl;
+        commands(rows, columns, characters, zombie);
+    }
 }
 
 void changesetting(int rows, int columns, char characters[8], int numofzombie)
