@@ -28,6 +28,15 @@ void help()
     
 }
 
+void saveGame()
+{
+    string filename;
+    cout << "Enter the file name to save the current game => ";
+    cin >> filename;
+    ofstream outfile(filename);
+    outfile << "Nothing here yet";
+}
+
 void gameboard(int rows, int columns, char characters[11], int m)
 {
     // calculate the middle row and column
@@ -162,13 +171,10 @@ void commands(int rows,int columns, char characters[11], int zombie)
     }
     else if (command =="save")
     {
-        string filename;
-        cout << "Enter the file name to save the current game => ";
-        cin >> filename;
-        ofstream out(filename);
+        saveGame();
         cout << "File saved successfully!" << endl;
         cout << "------------------------" << endl;
-        cout << "Please enter to continue..." << endl;
+        cout << "Please enter to continue...";
         cin.ignore();
         cin.ignore();
         gameboard(rows, columns, characters, zombie);
