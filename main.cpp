@@ -35,7 +35,7 @@ void gameboard(int rows, int columns, char characters[11], int m)
     
     
     // Seed the random number generator
-    srand(time(0));
+    srand(1);
 
     // array to store the coordinates of the zombies
     int zombiesX[10], zombiesY[10];
@@ -149,6 +149,8 @@ void commands(int rows,int columns, char characters[11], int zombie)
         cin.ignore();
         cin.ignore();
         gameboard(rows, columns, characters,zombie);
+        cout<<endl;
+        commands(rows,columns,characters,zombie);
     }    
     else if(command =="quit")
     {
