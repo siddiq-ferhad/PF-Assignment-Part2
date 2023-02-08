@@ -25,16 +25,6 @@ void help()
     cout<<"1)up=> move up"<<endl;cout<<"2)down=> move down"<<endl;cout<<"3)left=> move left"<<endl;cout<<"4)right=> move right"<<endl;
     cout<<"help=> Show the user's command"<<endl;cout<<"5)save=> save the game"<<endl;cout<<"6)load=> loading the game"<<endl;cout<<"7)quit=> quit the game"<<endl;
     cout<<"----------------------"<<endl;
-    
-}
-
-void saveGame()
-{
-    string filename;
-    cout << "Enter the file name to save the current game => ";
-    cin >> filename;
-    ofstream outfile(filename);
-    outfile << "Nothing here yet";
 }
 
 void gameboard(int rows, int columns, char characters[11], int m)
@@ -147,6 +137,17 @@ void AZattributes(int numofzom)
     }
 }
 
+void saveGame(int rows, int columns, char characters[11], int zombie)
+{
+    string filename;
+    cout << "Enter the file name to save the current game => ";
+    cin >> filename;
+    ofstream outfile(filename);
+    outfile << "Number of rows => " << rows << endl;
+    outfile << "Number of columns => " << columns << endl;
+    outfile << "Number of zombie => " << zombie << endl;
+}
+
 void commands(int rows,int columns, char characters[11], int zombie)
 {
     cout<<"--------------------------------------------------"<<endl;
@@ -171,7 +172,7 @@ void commands(int rows,int columns, char characters[11], int zombie)
     }
     else if (command =="save")
     {
-        saveGame();
+        saveGame(rows, columns, characters, zombie);
         cout << "File saved successfully!" << endl;
         cout << "------------------------" << endl;
         cout << "Please enter to continue...";
@@ -212,6 +213,7 @@ void changesetting(int rows, int columns, char characters[8], int numofzombie)
         commands(rows,columns,characters,zombie);
     }
 }
+
 int main()
 {
     cout << endl;
