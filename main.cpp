@@ -239,7 +239,7 @@ int main()
     char finaldeci = tolower(deci);
     // define array of characters
     char characters[11] = {' ', ' ', '^', 'v', '>', '<', 'h', 'p', 'r', ' '};
-    vector<int>numofzombie;
+    
     if (finaldeci == 'n')
     {
         rows = 7;
