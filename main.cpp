@@ -189,7 +189,7 @@ void changesetting(int rows, int columns, char characters[8], int numofzombie)
     cout << endl;
     cout << "-------------------------------------------" << endl;
     cout << "Please enter the odd number that larger than 1 for row and column that prefered!!!" << endl;
-    cout << "Please enter numbers of zombie less than 8 !!!" << endl;
+    cout << "Please enter numbers of zombie less than 10 !!!" << endl;
     cout << "-------------------------------------------" << endl;
     cout << "Number of row=>";
     cin >> rows;
@@ -199,7 +199,7 @@ void changesetting(int rows, int columns, char characters[8], int numofzombie)
     cout << "Number of zombie=>";
     cin >> zombie;
 
-    if (rows % 2 == 0 || columns % 2 == 0 || zombie > 7)
+    if (rows % 2 == 0 || columns % 2 == 0 || zombie > 9)
     {
         cout << endl
         << "*Please enter again:(Take note: Only enter odd number that larger than 1 and enter number less than 8 for zombie)" << endl;
