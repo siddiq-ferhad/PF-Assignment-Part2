@@ -82,7 +82,7 @@ void board::gameboard(int rows, int columns, int numofzom)
             // modulo operator to cycle through the characters array
             cout << "|";
             field[i][j] = characters[no];
-            field[a1][a2] = 'A';
+            
             cout << field[i][j];
         }
         cout << "|" << endl
