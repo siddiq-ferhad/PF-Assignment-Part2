@@ -16,6 +16,19 @@ using namespace std;
 #include <string>
 #include <fstream>
 
+class board
+{
+public:
+    void gameboard(int rows, int columns, int zombie);
+    void AZattributes(int numofzom);
+    void commands(int rows, int columns, int zombie);
+    void changesetting(int rows, int columns, int numofzombie);
+    
+private:
+    vector<vector<char>>field;
+    int rows, columns;
+};
+
 void help()
 {
     //display user guide
@@ -23,85 +36,74 @@ void help()
     cout<<"Command"<<endl;
     cout<<"--------"<<endl;
     cout<<"1)up=> move up"<<endl;cout<<"2)down=> move down"<<endl;cout<<"3)left=> move left"<<endl;cout<<"4)right=> move right"<<endl;
-    cout<<"help=> Show the user's command"<<endl;cout<<"5)save=> save the game"<<endl;cout<<"6)load=> loading the game"<<endl;cout<<"7)quit=> quit the game"<<endl;
+    cout<<"5)help=> Show the user's command"<<endl;cout<<"6)save=> save the game"<<endl;cout<<"7)load=> loading the game"<<endl;cout<<"8)quit=> quit the game"<<endl;
     cout<<"----------------------"<<endl;
 }
 
-void gameboard(int rows, int columns, char characters[11], int m)
+void board::gameboard(int rows, int columns, int numofzom)
 {
-    // calculate the middle row and column
-    int middleRow = rows / 2 + 1;
-    int middleColumn = columns / 2 + 1;
-    
-    
-    // Seed the random number generator
-    srand(1);
+   
+    char characters[] = {' ', '^', 'v', '>', '<', 'h', 'p', 'r', ' '};
+
+    field.resize(columns);
+    for (int i = 0; i < columns; ++i)
+    {
+        field[i].resize(rows); // resize each row
+    }
 
     // array to store the coordinates of the zombies
     int zombiesX[10], zombiesY[10];
 
-    //randomly assign the zombie on the board
-    for (int i = 0; i < m; i++)
+    // randomly assign the zombie on the board
+    for (int i = 0; i < numofzom; i++)
     {
         zombiesX[i] = rand() % rows + 1;
         zombiesY[i] = rand() % columns + 1;
     }
 
-
-    
+    int a1 = (rows - 1) / 2;
+    int a2 = (columns - 1) / 2;
+    int numofobject = 9;
     // Print top row of "+" and "-"
-    cout << setw(4) << " ";
-    for (int i = 1; i <= columns; i++)
+    cout << setw(5);
+    for (int i = 0; i < rows; ++i)
     {
-        cout << "+"
-             << " - ";
+        cout << "+-";
     }
     cout << "+" << endl;
-    
+
     // Print the grid with your specified characters
-    for (int i = 1; i <= rows; i++)
+    for (int i = 0; i < columns; ++i)
     {
-        cout << setw(4) << i;
-        for (int j = 1; j <= columns; j++)
+        cout << setw(2) << i + 1 << setw(2);
+        for (int j = 0; j < rows; ++j)
         {
-
+            int no = rand() % numofobject;
             // modulo operator to cycle through the characters array
-            char c = characters[rand() % 8];
-            
-            if (i == middleRow && j == middleColumn)
-            {
-                c = 'A';
-            }
-
-            for (int k = 0; k < m; k++)
-            //to check if the zombie is in the current space
-            {
-                if (i == zombiesX[k] && j == zombiesY[k])
-                {
-                    c = k+1+'0';
-                }
-            }
-               
-            cout << "|"
-                 << " " << c << " ";
+            cout << "|";
+            field[i][j] = characters[no];
+            field[a1][a2] = 'A';
+            cout << field[i][j];
         }
-        cout << "|" << endl;
+        cout << "|" << endl
+             << setw(5);
 
-        // Print row of "+" and "-"
-        cout << setw(5) << "+";
-        for (int j = 1; j <= columns; j++)
+        for (int i = 0; i < rows; ++i)
         {
-            cout << " - "
-                 << "+";
+            cout << "+-";
         }
-        cout << endl;
+        cout << "+" << endl;
+             
     }
-    // Print column numbers below grid
-    cout << setw(5) << " ";
-    for (int i = 1; i <= columns; i++)
+    cout <<"   ";
+    for (int i = 1; i <= columns; ++i)
     {
-        cout << setw(2) << i << setw(2) << ' ';
+        
+        cout << setw(2) << i << setw(2);
     }
+    cout<<endl;
+
+    
 }
 
 void AZattributes(int numofzom)
@@ -137,7 +139,7 @@ void AZattributes(int numofzom)
     }
 }
 
-void saveGame(int rows, int columns, char characters[11], int zombie)
+void saveGame(int rows, int columns,int zombie)
 {
     string filename;
     cout << "Enter the file name to save the current game => ";
@@ -148,48 +150,48 @@ void saveGame(int rows, int columns, char characters[11], int zombie)
     outfile << "Number of zombie => " << zombie << endl;
 }
 
-void commands(int rows,int columns, char characters[11], int zombie)
+void board::commands(int rows, int columns, int zombie)
 {
-    cout<<"--------------------------------------------------"<<endl;
+    cout << "--------------------------------------------------" << endl;
     string command;
-    cout<<"Please enter command=>";
-    cin>>command;
-    if (command =="help"){
-        help();
-        cout<<"Please enter to continue..."<<endl;
-        cin.ignore();
-        cin.ignore();
-        gameboard(rows, columns, characters,zombie);
-        AZattributes(zombie);
-        cout<<endl;
-        commands(rows,columns,characters,zombie);
-    }    
-    else if(command =="quit")
+    cout << "Please enter command=>";
+    cin >> command;
+    if (command == "help")
     {
-        cout<<"Thank you for playing the game. Bye Bye";
-        //Terminate the game
+        help();
+        cout << "Please enter to continue..." << endl;
+        cin.ignore();
+        cin.ignore();
+        gameboard(rows, columns, zombie);
+        AZattributes(zombie);
+        cout << endl;
+        commands(rows, columns, zombie);
+    }
+    else if (command == "quit")
+    {
+        cout << "Thank you for playing the game. Bye Bye";
+        // Terminate the game
         exit(0);
     }
-    else if (command =="save")
+    else if (command == "save")
     {
-        saveGame(rows, columns, characters, zombie);
+        saveGame(rows, columns, zombie);
         cout << "File saved successfully!" << endl;
         cout << "------------------------" << endl;
         cout << "Please enter to continue...";
         cin.ignore();
         cin.ignore();
-        gameboard(rows, columns, characters, zombie);
+        gameboard(rows, columns, zombie);
         cout << endl;
-        commands(rows, columns, characters, zombie);
+        commands(rows, columns, zombie);
     }
 }
-
-void changesetting(int rows, int columns, char characters[8], int numofzombie)
+void board::changesetting(int rows, int columns, int numofzombie)
 {
     cout << endl;
     cout << "-------------------------------------------" << endl;
     cout << "Please enter the odd number that larger than 1 for row and column that prefered!!!" << endl;
-    cout << "Please enter numbers of zombie less than 10 !!!" << endl;
+    cout << "Please enter numbers of zombie less than 8 !!!" << endl;
     cout << "-------------------------------------------" << endl;
     cout << "Number of row=>";
     cin >> rows;
@@ -199,20 +201,21 @@ void changesetting(int rows, int columns, char characters[8], int numofzombie)
     cout << "Number of zombie=>";
     cin >> zombie;
 
-    if (rows % 2 == 0 || columns % 2 == 0 || zombie > 9)
+    if (rows % 2 == 0 || columns % 2 == 0 || zombie > 7)
     {
         cout << endl
-        << "*Please enter again:(Take note: Only enter odd number that larger than 1 and enter number less than 8 for zombie)" << endl;
-        changesetting(rows, columns, characters,zombie);
+             << "*Please enter again:(Take note: Only enter odd number that larger than 1 and enter number less than 8 for zombie)" << endl;
+        changesetting(rows, columns, zombie);
     }
     else
     {
         cout << endl;
-        gameboard(rows, columns, characters, zombie);
+        gameboard(rows, columns, zombie);
         AZattributes(zombie);
-        commands(rows,columns,characters,zombie);
+        commands(rows, columns, zombie);
     }
 }
+
 
 int main()
 {
@@ -238,26 +241,29 @@ int main()
     // tolower() to convert input to lowercase
     char finaldeci = tolower(deci);
     // define array of characters
-    char characters[11] = {' ', ' ', '^', 'v', '>', '<', 'h', 'p', 'r', ' '};
-    
+
+    board r1;
     if (finaldeci == 'n')
     {
         rows = 7;
         columns = 7;
         int zombie = 5;
-        gameboard(rows, columns, characters, zombie);
-        AZattributes(zombie);
-        commands(rows,columns,characters,zombie);
+
+        r1.gameboard(rows, columns, zombie);
+        r1.AZattributes(zombie);
+
+        r1.commands(rows, columns, zombie);
     }
     else if (finaldeci == 'y')
     {
-        changesetting(rows, columns, characters, zombie);
+        r1.changesetting(rows, columns, zombie);
     }
     else
     {
         cout << "Please enter correctly!!!" << endl;
         main();
     }
+}
 
     
-}
+
