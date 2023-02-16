@@ -96,10 +96,24 @@ void board::gameboard(int rows, int columns, int numofzom)
              
     }
     cout <<"   ";
-    for (int i = 1; i <= columns; ++i)
+    for (int i = 1; i <= rows; ++i)
     {
-        
-        cout << setw(2) << i << setw(2);
+        int colnum;
+        colnum=(i)/10;
+        cout<<" ";
+        if (colnum==0)
+            cout<<" ";
+        else
+            cout << colnum;
+    }
+    cout<<endl;
+    cout <<"   ";
+    for(int p=1;p<=rows;++p)
+    {
+
+        int m;
+        m=p%10;
+        cout<<" "<<m;
     }
     cout<<endl;
 
