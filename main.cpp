@@ -255,6 +255,38 @@ void board::commands(int rows, int columns, int zombie)
             commands(rows, columns, zombie);
         }
     }
+    else if (command == "up" && posx > 0)
+    {
+        swap(field[posx][posy], field[posx - 1][posy]);
+        gameboard2(rows, columns, zombie);
+        AZattributes(zombie);
+        cout << endl;
+        commands(rows, columns, zombie);
+    }
+    else if (command == "down" && posx < rows - 1)
+    {
+        swap(field[posx][posy], field[posx + 1][posy]);
+        gameboard2(rows, columns, zombie);
+        AZattributes(zombie);
+        cout << endl;
+        commands(rows, columns, zombie);
+    }
+    else if (command == "left" && posy > 0)
+    {
+        swap(field[posx][posy], field[posx][posy - 1]);
+        gameboard2(rows, columns, zombie);
+        AZattributes(zombie);
+        cout << endl;
+        commands(rows, columns, zombie);
+    }
+    else if (command == "right" && posy < columns - 1)
+    {
+        swap(field[posx][posy], field[posx][posy + 1]);
+        gameboard2(rows, columns, zombie);
+        AZattributes(zombie);
+        cout << endl;
+        commands(rows, columns, zombie);
+    }
     else
     {
         cout << "--------------------------------------------------" << endl;
