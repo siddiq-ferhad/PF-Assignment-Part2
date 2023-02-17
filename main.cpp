@@ -23,6 +23,7 @@ public:
     void AZattributes(int numofzom);
     void commands(int rows, int columns, int zombie);
     void changesetting(int rows, int columns, int numofzombie);
+    void gameboard2(int rows,int columns,int numofzombie); 
     
 private:
     vector<vector<char>>field;
@@ -40,31 +41,10 @@ void help()
     cout<<"----------------------"<<endl;
 }
 
-void board::gameboard(int rows, int columns, int numofzom)
+void board::gameboard2(int rows,int columns,int zombie)
 {
-   
-    char characters[] = {' ', '^', 'v', '>', '<', 'h', 'p', 'r', ' '};
-
-    field.resize(columns);
-    for (int i = 0; i < columns; ++i)
-    {
-        field[i].resize(rows); // resize each row
-    }
-
-    // array to store the coordinates of the zombies
-    int zombiesX[10], zombiesY[10];
-
-    // randomly assign the zombie on the board
-    for (int i = 0; i < numofzom; i++)
-    {
-        zombiesX[i] = rand() % rows + 1;
-        zombiesY[i] = rand() % columns + 1;
-    }
-
-    int a1 = (rows - 1) / 2;
-    int a2 = (columns - 1) / 2;
-    int numofobject = 9;
-    // Print top row of "+" and "-"
+    cout<<endl;
+    
     cout << setw(5);
     for (int i = 0; i < rows; ++i)
     {
@@ -78,11 +58,9 @@ void board::gameboard(int rows, int columns, int numofzom)
         cout << setw(2) << i + 1 << setw(2);
         for (int j = 0; j < rows; ++j)
         {
-            int no = rand() % numofobject;
+            
             // modulo operator to cycle through the characters array
             cout << "|";
-            field[i][j] = characters[no];
-            
             cout << field[i][j];
         }
         cout << "|" << endl
@@ -102,7 +80,7 @@ void board::gameboard(int rows, int columns, int numofzom)
         colnum=(i)/10;
         cout<<" ";
         if (colnum==0)
-            cout<<" ";
+            cout<<"0";
         else
             cout << colnum;
     }
@@ -116,8 +94,60 @@ void board::gameboard(int rows, int columns, int numofzom)
         cout<<" "<<m;
     }
     cout<<endl;
+}
 
+void board::gameboard(int rows, int columns, int numofzom)
+{
+    srand(time(NULL));
+    char characters[] = {' ', '^', 'v', '>', '<', 'h', 'p', 'r', ' '};
+
+    //calculate the middle row and column
+    int middleRow = (rows - 1) / 2;
+    int middleColumn = (columns - 1) / 2;
+
+    field.resize(columns);
+    for (int i = 0; i < columns; ++i)
+    {
+        field[i].resize(rows); // resize each row
+    }
+
+    // array to store the coordinates of the zombies
+    int zombiesX[10], zombiesY[10];
+
+    // randomly assign the zombie on the board
+    for (int i = 0; i < numofzom; i++)
+    {
+        zombiesX[i] = rand() % rows;
+        zombiesY[i] = rand() % columns;
+    }
     
+    int numofobject = 9;
+    // Print the grid with your specified characters
+    for (int i = 0; i < columns; ++i)
+    {
+
+        for (int j = 0; j < rows; ++j)
+        {
+            int no = rand() % numofobject;
+            // modulo operator to cycle through the characters array
+            field[i][j] = characters[no];
+            char c = characters[rand() % 8];
+            field[i][j] = c;
+            if (i == middleRow && j == middleColumn)
+            {
+                field[i][j] = 'A';
+            }
+            for (int k = 0; k < numofzom; k++)
+            {
+                if (i == zombiesX[k] && j == zombiesY[k])
+                {
+                    field[i][j] = k + 1 + '0';
+                }
+            }
+        }
+        
+    }
+    board::gameboard2(rows,columns,numofzom);
 }
 
 void AZattributes(int numofzom)
