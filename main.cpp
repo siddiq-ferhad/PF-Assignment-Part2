@@ -215,9 +215,9 @@ void board::commands(int rows, int columns, int zombie)
         ofstream saveFile(filename);
         saveFile << rows << " " << columns << " " << zombie << endl;
         saveFile.close();
-        cout << "------------------------" << endl;
-        cout << "Game saved successfully." << endl;
-        cout << "------------------------" << endl;
+        cout << "-----------------------" << endl;
+        cout << "Game saved successfully" << endl;
+        cout << "-----------------------" << endl;
         cout << "Please enter to continue..." << endl;
         cin.ignore();
         cin.ignore();
@@ -237,9 +237,9 @@ void board::commands(int rows, int columns, int zombie)
         {
             saveFile >> rows >> columns >> zombie;
             saveFile.close();
-            cout << "-------------------------" << endl;
-            cout << "Game loaded successfully." << endl;
-            cout << "-------------------------" << endl;
+            cout << "------------------------" << endl;
+            cout << "Game loaded successfully" << endl;
+            cout << "------------------------" << endl;
             cout << "Please enter to continue..." << endl;
             cin.ignore();
             cin.ignore();
