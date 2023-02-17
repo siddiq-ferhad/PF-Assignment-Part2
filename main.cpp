@@ -196,7 +196,7 @@ void board::commands(int rows, int columns, int zombie)
         cout << "Please enter to continue..." << endl;
         cin.ignore();
         cin.ignore();
-        gameboard(rows, columns, zombie);
+        gameboard2(rows, columns, zombie);
         AZattributes(zombie);
         cout << endl;
         commands(rows, columns, zombie);
@@ -213,7 +213,7 @@ void board::commands(int rows, int columns, int zombie)
         cout << "Enter the file name to save the current game => ";
         cin >> filename;
         ofstream saveFile(filename);
-        saveFile << rows << " " << columns << endl;
+        saveFile << rows << " " << columns << " " << zombie << endl;
         saveFile.close();
         cout << "------------------------" << endl;
         cout << "Game saved successfully." << endl;
@@ -222,19 +222,20 @@ void board::commands(int rows, int columns, int zombie)
         cin.ignore();
         cin.ignore();
         gameboard2(rows, columns, zombie);
+        AZattributes(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
     else if (command == "load")
     {
-        int rows = 0, columns = 0, numofzombie = 0;
+        int rows = 0, columns = 0, zombie = 0;
         string filename;
         cout << "Enter the file name to load => ";
         cin >> filename;
         ifstream saveFile(filename);
         if (saveFile.is_open())
         {
-            saveFile >> rows >> columns;
+            saveFile >> rows >> columns >> zombie;
             saveFile.close();
             cout << "-------------------------" << endl;
             cout << "Game loaded successfully." << endl;
@@ -242,7 +243,8 @@ void board::commands(int rows, int columns, int zombie)
             cout << "Please enter to continue..." << endl;
             cin.ignore();
             cin.ignore();
-            gameboard(rows, columns, numofzombie);
+            gameboard(rows, columns, zombie);
+            AZattributes(zombie);
             cout << endl;
             commands(rows, columns, zombie);
         }
