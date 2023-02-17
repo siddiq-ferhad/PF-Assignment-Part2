@@ -41,6 +41,7 @@ void help()
     cout<<"----------------------"<<endl;
 }
 
+//To display the gameboard
 void board::gameboard2(int rows,int columns,int zombie)
 {
     cout<<endl;
@@ -58,8 +59,7 @@ void board::gameboard2(int rows,int columns,int zombie)
         cout << setw(2) << i + 1 << setw(2);
         for (int j = 0; j < rows; ++j)
         {
-            
-            // modulo operator to cycle through the characters array
+  
             cout << "|";
             cout << field[i][j];
         }
@@ -96,6 +96,7 @@ void board::gameboard2(int rows,int columns,int zombie)
     cout<<endl;
 }
 
+//to assign value to gameboard
 void board::gameboard(int rows, int columns, int numofzom)
 {
     srand(time(NULL));
