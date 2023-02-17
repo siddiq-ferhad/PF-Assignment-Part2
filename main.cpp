@@ -9,12 +9,12 @@
 // *********************************************************
 
 #include <iostream>
-using namespace std;
 #include <iomanip>
 #include <cctype>
 #include <vector>
 #include <string>
 #include <fstream>
+using namespace std;
 
 class board
 {
@@ -36,8 +36,8 @@ void help()
     cout<<"----------------------"<<endl;
     cout<<"Command"<<endl;
     cout<<"--------"<<endl;
-    cout<<"1)up=> move up"<<endl;cout<<"2)down=> move down"<<endl;cout<<"3)left=> move left"<<endl;cout<<"4)right=> move right"<<endl;
-    cout<<"5)help=> Show the user's command"<<endl;cout<<"6)save=> save the game"<<endl;cout<<"7)load=> loading the game"<<endl;cout<<"8)quit=> quit the game"<<endl;
+    cout<<"1) up => Move up"<<endl;cout<<"2) down => Move down"<<endl;cout<<"3) left => Move left"<<endl;cout<<"4) right => Move right"<<endl;
+    cout<<"5) help => Show the user's command"<<endl;cout<<"6) save => Save the game"<<endl;cout<<"7) load => Load the game"<<endl;cout<<"8) quit=> Quit the game"<<endl;
     cout<<"----------------------"<<endl;
 }
 
@@ -164,15 +164,15 @@ void board::AZattributes(int numofzom)
     int lifeofzom[numofzom];
     int attackofzom[numofzom];
     int rangeofzom[numofzom];
-    cout<<"-------------------------------------------------"<<endl;
-    cout << "Alien:" << setw(12) << "Life=> " << alienhp << "  Attack=> " <<alienattack << endl;
+    cout << "-------------------------------------------------" << endl;
+    cout << "Alien:" << setw(12) << "Life=> " << alienhp << "  Attack=> " << alienattack << endl;
     for (int m = 1; m < numofzom + 1; ++m)
     {
         //Randomly assign zombie life,attack and range
         zombielife = rand() % 200 + 100;
         zombieattack = rand() % 15 + 5;
         range = rand() % 5 + 1;
-        cout<<"-------------------------------------------------"<<endl;
+        cout << "-------------------------------------------------" << endl;
         //Display zombie number of life,attack and range
         cout << "Zombie" << m << ":  "
              << "Life=> " << zombielife << setw(12) << "Attack=> " << zombieattack << setw(12) << "Range=> " << range << endl;
@@ -188,8 +188,21 @@ void board::commands(int rows, int columns, int zombie)
 {
     cout << "--------------------------------------------------" << endl;
     string command;
-    cout << "Please enter command=>";
+    cout << "Please enter command => ";
     cin >> command;
+    int posx, posy;
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < columns; j++)
+        {
+            if (field[i][j] == 'A')
+            {
+                posx = i;
+                posy = j;
+                break;
+            }
+        }
+    } 
     if (command == "help")
     {
         help();
@@ -302,12 +315,12 @@ void board::changesetting(int rows, int columns, int numofzombie)
     cout << "Please enter the odd number that larger than 1 for row and column that prefered!!!" << endl;
     cout << "Please enter numbers of zombie less than 8 !!!" << endl;
     cout << "-------------------------------------------" << endl;
-    cout << "Number of row=>";
+    cout << "Number of row => ";
     cin >> rows;
-    cout << "Number of column=>";
+    cout << "Number of column => ";
     cin >> columns;
     int zombie;
-    cout << "Number of zombie=>";
+    cout << "Number of zombie => ";
     cin >> zombie;
 
     if (rows % 2 == 0 || columns % 2 == 0 || zombie > 7)
@@ -341,10 +354,10 @@ int main()
     cout << "--------------------" << endl;
     int rows, columns, zombie;
     char deci;
-    cout << "Rows=>7" << endl;
-    cout << "Columns=>7" << endl;
-    cout << "Zombie=>5" << endl;
-    cout << "Do you want to change the settings (y or n)?=>";
+    cout << "Rows => 7" << endl;
+    cout << "Columns => 7" << endl;
+    cout << "Zombie => 5" << endl;
+    cout << "Do you want to change the settings (y or n)?=> ";
     cin >> deci;
     // tolower() to convert input to lowercase
     char finaldeci = tolower(deci);
