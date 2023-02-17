@@ -151,7 +151,7 @@ void board::gameboard(int rows, int columns, int numofzom)
     board::gameboard2(rows,columns,numofzom);
 }
 
-void AZattributes(int numofzom)
+void board::AZattributes(int numofzom)
 {
     cout << endl;
     int alienhp=100;
@@ -184,17 +184,6 @@ void AZattributes(int numofzom)
     }
 }
 
-void saveGame(int rows, int columns,int zombie)
-{
-    string filename;
-    cout << "Enter the file name to save the current game => ";
-    cin >> filename;
-    ofstream outfile(filename);
-    outfile << "Number of rows => " << rows << endl;
-    outfile << "Number of columns => " << columns << endl;
-    outfile << "Number of zombie => " << zombie << endl;
-}
-
 void board::commands(int rows, int columns, int zombie)
 {
     cout << "--------------------------------------------------" << endl;
@@ -220,17 +209,39 @@ void board::commands(int rows, int columns, int zombie)
     }
     else if (command == "save")
     {
-        saveGame(rows, columns, zombie);
-        cout << "File saved successfully!" << endl;
-        cout << "------------------------" << endl;
-        cout << "Please enter to continue...";
+        ofstream saveFile("save.txt");
+        if (saveFile.is_open())
+        {
+            saveFile << rows << " " << columns << endl;
+            saveFile.close();
+            cout << "Game saved successfully." << endl;
+            cout << "Please enter to continue..." << endl;
+            cin.ignore();
+            cin.ignore();
+            gameboard2(rows, columns, zombie);
+            cout << endl;
+            commands(rows, columns, zombie);
+        }
+        else
+        {
+            cout << "Unable to open file." << endl;
+        }
+    }
+    else if (command == "load")
+    {
+        int rows = 0, columns = 0, numofzombie = 0;
+        ifstream saveFile("save.txt");
+        saveFile >> rows >> columns;
+        saveFile.close();
+        cout << "Please enter to continue..." << endl;
         cin.ignore();
         cin.ignore();
-        gameboard(rows, columns, zombie);
+        gameboard(rows, columns, numofzombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
 }
+
 void board::changesetting(int rows, int columns, int numofzombie)
 {
     cout << endl;
@@ -309,6 +320,3 @@ int main()
         main();
     }
 }
-
-    
-
