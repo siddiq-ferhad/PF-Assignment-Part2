@@ -213,24 +213,17 @@ void board::commands(int rows, int columns, int zombie)
         cout << "Enter the file name to save the current game => ";
         cin >> filename;
         ofstream saveFile(filename);
-        if (saveFile.is_open())
-        {
-            saveFile << rows << " " << columns << endl;
-            saveFile.close();
-            cout << "------------------------" << endl;
-            cout << "Game saved successfully." << endl;
-            cout << "------------------------" << endl;
-            cout << "Please enter to continue..." << endl;
-            cin.ignore();
-            cin.ignore();
-            gameboard2(rows, columns, zombie);
-            cout << endl;
-            commands(rows, columns, zombie);
-        }
-        else
-        {
-            cout << "Unable to open file." << endl;
-        }
+        saveFile << rows << " " << columns << endl;
+        saveFile.close();
+        cout << "------------------------" << endl;
+        cout << "Game saved successfully." << endl;
+        cout << "------------------------" << endl;
+        cout << "Please enter to continue..." << endl;
+        cin.ignore();
+        cin.ignore();
+        gameboard2(rows, columns, zombie);
+        cout << endl;
+        commands(rows, columns, zombie);
     }
     else if (command == "load")
     {
@@ -239,17 +232,26 @@ void board::commands(int rows, int columns, int zombie)
         cout << "Enter the file name to load => ";
         cin >> filename;
         ifstream saveFile(filename);
-        saveFile >> rows >> columns;
-        saveFile.close();
-        cout << "-------------------------" << endl;
-        cout << "Game loaded successfully." << endl;
-        cout << "-------------------------" << endl;
-        cout << "Please enter to continue..." << endl;
-        cin.ignore();
-        cin.ignore();
-        gameboard(rows, columns, numofzombie);
-        cout << endl;
-        commands(rows, columns, zombie);
+        if (saveFile.is_open())
+        {
+            saveFile >> rows >> columns;
+            saveFile.close();
+            cout << "-------------------------" << endl;
+            cout << "Game loaded successfully." << endl;
+            cout << "-------------------------" << endl;
+            cout << "Please enter to continue..." << endl;
+            cin.ignore();
+            cin.ignore();
+            gameboard(rows, columns, numofzombie);
+            cout << endl;
+            commands(rows, columns, zombie);
+        }
+        else
+        {
+            cout << "--------------------------------------------------" << endl;
+            cout << "Oops! File doesn't exist." << endl;
+            commands(rows, columns, zombie);
+        }
     }
 }
 
