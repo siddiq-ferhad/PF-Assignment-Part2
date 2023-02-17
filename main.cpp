@@ -209,7 +209,10 @@ void board::commands(int rows, int columns, int zombie)
     }
     else if (command == "save")
     {
-        ofstream saveFile("save.txt");
+        string filename;
+        cout << "Enter the file name to save the current game => ";
+        cin >> filename;
+        ofstream saveFile(filename);
         if (saveFile.is_open())
         {
             saveFile << rows << " " << columns << endl;
@@ -230,9 +233,13 @@ void board::commands(int rows, int columns, int zombie)
     else if (command == "load")
     {
         int rows = 0, columns = 0, numofzombie = 0;
-        ifstream saveFile("save.txt");
+        string filename;
+        cout << "Enter the file name to load => ";
+        cin >> filename;
+        ifstream saveFile(filename);
         saveFile >> rows >> columns;
         saveFile.close();
+        cout << "Game loaded successfully." << endl;
         cout << "Please enter to continue..." << endl;
         cin.ignore();
         cin.ignore();
@@ -271,7 +278,6 @@ void board::changesetting(int rows, int columns, int numofzombie)
         commands(rows, columns, zombie);
     }
 }
-
 
 int main()
 {
