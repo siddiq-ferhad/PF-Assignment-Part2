@@ -255,6 +255,12 @@ void board::commands(int rows, int columns, int zombie)
             commands(rows, columns, zombie);
         }
     }
+    else
+    {
+        cout << "--------------------------------------------------" << endl;
+        cout << "Please enter correctly!!!" << endl;
+        commands(rows, columns, zombie);
+    }    
 }
 
 void board::changesetting(int rows, int columns, int numofzombie)
