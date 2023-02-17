@@ -37,7 +37,7 @@ void help()
     cout<<"Command"<<endl;
     cout<<"--------"<<endl;
     cout<<"1) up => Move up"<<endl;cout<<"2) down => Move down"<<endl;cout<<"3) left => Move left"<<endl;cout<<"4) right => Move right"<<endl;
-    cout<<"5) help => Show the user's command"<<endl;cout<<"6) save => Save the game"<<endl;cout<<"7) load => Load the game"<<endl;cout<<"8) quit=> Quit the game"<<endl;
+    cout<<"5) help => Show the user's command"<<endl;cout<<"6) save => Save the game"<<endl;cout<<"7) load => Load the game"<<endl;cout<<"8) quit => Quit the game"<<endl;
     cout<<"----------------------"<<endl;
 }
 
