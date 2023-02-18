@@ -35,9 +35,7 @@ int zombielabell[9];
 int zombiehp[9];
 int zombieattackk[9];
 int zombierangee[9];
-
 int alienhp=10;
-
 int alienattackk;
 
 class alien
@@ -45,10 +43,8 @@ class alien
 public:
     void alienattributes();
     void alienhealth();
-    
     int alienlife=10;
     int alienattack=0;
-    
 };
 
 class zombies
@@ -56,20 +52,18 @@ class zombies
 public:
     void zombieattributes(int numofzom);
     void updatezombies(int numofzom);
+    
 private:
     int zombielabel,zombielife,zombieattack,zombierange;
     vector<int>zombiedata;
-   
-
 };
-
 
 void alien::alienattributes()
 {
     cout << "-------------------------------------------------" << endl;
     cout << "Alien:" << setw(12) << "Life=> " << alienhp << "  Attack=> " << alienattackk << endl;
-    
 }
+
 void board::movement(int posx, int posy)
 {
     alien a;
@@ -146,20 +140,17 @@ void board::obsRock()
     }
 
 void alien::alienhealth()
-    {
-        
-        if(alienhp+20>100){
-        alienhp=100;}
-        else (alienhp=alienhp+20);
-       
-       alienattributes();
-    }
+{
+    if(alienhp+20>100){
+    lienhp=100;}
+    else (alienhp=alienhp+20);
+    alienattributes();
+}
 
 void zombies::updatezombies(int numofzom)
 {
     alien a;
     a.alienattributes();
-    
     for(int n=0;n<numofzom;++n)
     {
         
@@ -167,13 +158,11 @@ void zombies::updatezombies(int numofzom)
              << "Life=> " << zombiehp[n] << setw(12) << "Attack=> " << zombieattackk[n] << setw(12) << "Range=> " << zombierangee[n] << endl;
     }
     cout << "-------------------------------------------------" << endl;
- 
 }
 
 void zombies::zombieattributes(int numofzom)
 {
     cout << endl;
-   
     for (int m = 0; m < numofzom ; ++m)
     {
         //Randomly assign zombie life,attack and range
@@ -185,8 +174,6 @@ void zombies::zombieattributes(int numofzom)
         zombiehp[m]=zombielife;
         zombieattackk[m]=zombieattack;
         zombierangee[m]=zombierange;
-        
-
     }
     
     updatezombies(numofzom);
@@ -315,8 +302,6 @@ void board::gameboard(int rows, int columns, int numofzom)
     board::gameboard2(rows,columns,numofzom);
 }
 
-
-
 void board::commands(int rows, int columns, int zombie)
 {
     zombies z;
@@ -392,7 +377,7 @@ void board::commands(int rows, int columns, int zombie)
             cin.ignore();
             cin.ignore();
             gameboard(rows, columns, zombie);
-            z.updatezombies(zombie);
+            z.zombieattributes(zombie);
             cout << endl;
             commands(rows, columns, zombie);
         }
