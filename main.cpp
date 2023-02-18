@@ -310,7 +310,7 @@ void board::commands(int rows, int columns, int zombie)
         cin.ignore();
         cin.ignore();
         gameboard2(rows, columns, zombie);
-        z.zombieattributes(zombie);
+        z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
@@ -332,7 +332,7 @@ void board::commands(int rows, int columns, int zombie)
             cin.ignore();
             cin.ignore();
             gameboard(rows, columns, zombie);
-            z.zombieattributes(zombie);
+            z.updatezombies(zombie);
             cout << endl;
             commands(rows, columns, zombie);
         }
@@ -348,7 +348,7 @@ void board::commands(int rows, int columns, int zombie)
         swap(field[posx][posy], field[posx - 1][posy]);
         movement(posx, posy);
         gameboard2(rows, columns, zombie);
-        AZattributes(zombie);
+        z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
@@ -357,7 +357,7 @@ void board::commands(int rows, int columns, int zombie)
         swap(field[posx][posy], field[posx + 1][posy]);
         movement(posx, posy);
         gameboard2(rows, columns, zombie);
-        AZattributes(zombie);
+        z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
@@ -366,7 +366,7 @@ void board::commands(int rows, int columns, int zombie)
         swap(field[posx][posy], field[posx][posy - 1]);
         movement(posx, posy);
         gameboard2(rows, columns, zombie);
-        AZattributes(zombie);
+        z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
@@ -375,7 +375,7 @@ void board::commands(int rows, int columns, int zombie)
         swap(field[posx][posy], field[posx][posy + 1]);
         movement(posx, posy);
         gameboard2(rows, columns, zombie);
-        AZattributes(zombie);
+        z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
