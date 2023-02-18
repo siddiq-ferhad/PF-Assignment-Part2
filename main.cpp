@@ -23,13 +23,48 @@ public:
     void commands(int rows, int columns, int zombie);
     void changesetting(int rows, int columns, int numofzombie);
     void gameboard2(int rows,int columns,int numofzombie); 
-    
-
+    void movement(int posx, int posy);
     
 private:
     vector<vector<char>>field;
     int rows, columns;
 };
+
+void board::movement(int posx, int posy)
+{
+    if (field[posx][posy] == '^')
+    {
+        field[posx][posy] = '.';
+    }
+    else if (field[posx][posy] == 'v')
+    {
+        field[posx][posy] = '.';
+    }
+    else if (field[posx][posy] == '<')
+    {
+        field[posx][posy] = '.';
+    }
+    else if (field[posx][posy] == '>')
+    {
+        field[posx][posy] = '.';
+    }
+    else if (field[posx][posy] == 'h')
+    {
+        field[posx][posy] = '.';
+    }
+    else if (field[posx][posy] == 'p')
+    {
+        field[posx][posy] = '.';
+    }
+    else if (field[posx][posy] == 'r')
+    {
+        field[posx][posy] = '.';
+    }
+    else if (field[posx][posy] == ' ')
+    {
+        field[posx][posy] = '.';
+    }
+}
 
 class alien
 {
@@ -311,180 +346,36 @@ void board::commands(int rows, int columns, int zombie)
     else if (command == "up" && posx > 0)
     {
         swap(field[posx][posy], field[posx - 1][posy]);
-        if (field[posx][posy] == '^')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'v')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == '<')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == '>')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'h')
-        {
-            field[posx][posy] = '.';
-            
-        }
-        else if (field[posx][posy] == 'p')
-        {
-
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'r')
-        {
-
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == ' ')
-        {
-            field[posx][posy] = '.';
-        }
-        // when interact with zombie
-        //        else
+        movement(posx, posy);
         gameboard2(rows, columns, zombie);
-        z.updatezombies(zombie);
+        AZattributes(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
     else if (command == "down" && posx < rows - 1)
     {
         swap(field[posx][posy], field[posx + 1][posy]);
-        if (field[posx][posy] == '^')
-        {
-
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'v')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == '<')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == '>')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'h')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'p')
-        {
-
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'r')
-        {
-
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == ' ')
-        {
-            field[posx][posy] = '.';
-        }
-        // when interact with zombie
-        //        else
+        movement(posx, posy);
         gameboard2(rows, columns, zombie);
-        z.updatezombies(zombie);
+        AZattributes(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
     else if (command == "left" && posy > 0)
     {
         swap(field[posx][posy], field[posx][posy - 1]);
-        if (field[posx][posy] == '^')
-        {
-
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'v')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == '<')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == '>')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'h')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'p')
-        {
-
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'r')
-        {
-
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == ' ')
-        {
-            field[posx][posy] = '.';
-        }
-        // when interact with zombie
-        //        else
+        movement(posx, posy);
         gameboard2(rows, columns, zombie);
-        z.zombieattributes(zombie);
+        AZattributes(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
     else if (command == "right" && posy < columns - 1)
     {
         swap(field[posx][posy], field[posx][posy + 1]);
-        if (field[posx][posy] == '^')
-        {
-
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'v')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == '<')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == '>')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'h')
-        {
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'p')
-        {
-
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == 'r')
-        {
-
-            field[posx][posy] = '.';
-        }
-        else if (field[posx][posy] == ' ')
-        {
-            field[posx][posy] = '.';
-        }
-        // when interact with zombie
-        //        else
+        movement(posx, posy);
         gameboard2(rows, columns, zombie);
-        z.zombieattributes(zombie);
+        AZattributes(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
