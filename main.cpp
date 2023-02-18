@@ -20,15 +20,84 @@ class board
 {
 public:
     void gameboard(int rows, int columns, int zombie);
-    void AZattributes(int numofzom);
     void commands(int rows, int columns, int zombie);
     void changesetting(int rows, int columns, int numofzombie);
     void gameboard2(int rows,int columns,int numofzombie); 
+    
+
     
 private:
     vector<vector<char>>field;
     int rows, columns;
 };
+
+class alien
+{
+public:
+    void alienattributes();
+    void health()
+    {
+        if(alienlife+20>100){
+        alienlife=100;}
+        else (alienlife=alienlife+20);
+       
+    }
+private:
+    int alienlife=100;
+    int alienattack=0;
+};
+
+class zombies
+{
+public:
+    void zombieattributes(int numofzom);
+    void updatezombies(int numofzom);
+private:
+    int zombielabel,zombielife,zombieattack,zombierange;
+    vector<int>zombiedata;
+};
+
+void alien::alienattributes()
+{
+    cout << "-------------------------------------------------" << endl;
+    cout << "Alien:" << setw(12) << "Life=> " << alienlife << "  Attack=> " << alienattack << endl;
+}
+
+void zombies::updatezombies(int numofzom)
+{
+    alien a;
+    a.alienattributes();
+    
+    for(int n=0;n<zombiedata.size();n=n+4)
+    {
+        
+    cout << "Zombie" << zombiedata[n] << ":  "
+             << "Life=> " << zombiedata[n+1] << setw(12) << "Attack=> " << zombiedata[n+2] << setw(12) << "Range=> " << zombiedata[n+3] << endl;
+    }
+    cout << "-------------------------------------------------" << endl;
+ 
+}
+
+void zombies::zombieattributes(int numofzom)
+{
+    cout << endl;
+   
+    for (int m = 1; m < numofzom + 1; ++m)
+    {
+        //Randomly assign zombie life,attack and range
+        zombielabel=m;
+        zombielife = rand() % 200 + 100;
+        zombieattack = rand() % 15 + 5;
+        zombierange = rand() % 5 + 1;
+       
+        zombiedata.push_back(zombielabel);
+        zombiedata.push_back(zombielife);
+        zombiedata.push_back(zombieattack);
+        zombiedata.push_back(zombierange);
+        
+    }
+    updatezombies(numofzom);
+}
 
 void help()
 {
@@ -151,41 +220,12 @@ void board::gameboard(int rows, int columns, int numofzom)
     board::gameboard2(rows,columns,numofzom);
 }
 
-void board::AZattributes(int numofzom)
-{
-    cout << endl;
-    int alienhp=100;
-    int alienattack=0;
-    int zombielife;
-    int zombieattack;
-    int range;
-    //Create some array to store data of zombie
-    int nameofzom[numofzom];
-    int lifeofzom[numofzom];
-    int attackofzom[numofzom];
-    int rangeofzom[numofzom];
-    cout << "-------------------------------------------------" << endl;
-    cout << "Alien:" << setw(12) << "Life=> " << alienhp << "  Attack=> " << alienattack << endl;
-    for (int m = 1; m < numofzom + 1; ++m)
-    {
-        //Randomly assign zombie life,attack and range
-        zombielife = rand() % 200 + 100;
-        zombieattack = rand() % 15 + 5;
-        range = rand() % 5 + 1;
-        cout << "-------------------------------------------------" << endl;
-        //Display zombie number of life,attack and range
-        cout << "Zombie" << m << ":  "
-             << "Life=> " << zombielife << setw(12) << "Attack=> " << zombieattack << setw(12) << "Range=> " << range << endl;
-       //Save the data in array
-        nameofzom[m] = {m};
-        lifeofzom[m] = {zombielife};
-        attackofzom[m] = {zombieattack};
-        rangeofzom[m] = {range};
-    }
-}
+
 
 void board::commands(int rows, int columns, int zombie)
 {
+    zombies z;
+    alien a;
     cout << "--------------------------------------------------" << endl;
     string command;
     cout << "Please enter command => ";
@@ -210,7 +250,7 @@ void board::commands(int rows, int columns, int zombie)
         cin.ignore();
         cin.ignore();
         gameboard2(rows, columns, zombie);
-        AZattributes(zombie);
+        z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
@@ -235,7 +275,7 @@ void board::commands(int rows, int columns, int zombie)
         cin.ignore();
         cin.ignore();
         gameboard2(rows, columns, zombie);
-        AZattributes(zombie);
+        z.zombieattributes(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
@@ -257,7 +297,7 @@ void board::commands(int rows, int columns, int zombie)
             cin.ignore();
             cin.ignore();
             gameboard(rows, columns, zombie);
-            AZattributes(zombie);
+            z.zombieattributes(zombie);
             cout << endl;
             commands(rows, columns, zombie);
         }
@@ -271,32 +311,180 @@ void board::commands(int rows, int columns, int zombie)
     else if (command == "up" && posx > 0)
     {
         swap(field[posx][posy], field[posx - 1][posy]);
+        if (field[posx][posy] == '^')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'v')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == '<')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == '>')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'h')
+        {
+            field[posx][posy] = '.';
+            
+        }
+        else if (field[posx][posy] == 'p')
+        {
+
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'r')
+        {
+
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == ' ')
+        {
+            field[posx][posy] = '.';
+        }
+        // when interact with zombie
+        //        else
         gameboard2(rows, columns, zombie);
-        AZattributes(zombie);
+        z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
     else if (command == "down" && posx < rows - 1)
     {
         swap(field[posx][posy], field[posx + 1][posy]);
+        if (field[posx][posy] == '^')
+        {
+
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'v')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == '<')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == '>')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'h')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'p')
+        {
+
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'r')
+        {
+
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == ' ')
+        {
+            field[posx][posy] = '.';
+        }
+        // when interact with zombie
+        //        else
         gameboard2(rows, columns, zombie);
-        AZattributes(zombie);
+        z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
     else if (command == "left" && posy > 0)
     {
         swap(field[posx][posy], field[posx][posy - 1]);
+        if (field[posx][posy] == '^')
+        {
+
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'v')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == '<')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == '>')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'h')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'p')
+        {
+
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'r')
+        {
+
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == ' ')
+        {
+            field[posx][posy] = '.';
+        }
+        // when interact with zombie
+        //        else
         gameboard2(rows, columns, zombie);
-        AZattributes(zombie);
+        z.zombieattributes(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
     else if (command == "right" && posy < columns - 1)
     {
         swap(field[posx][posy], field[posx][posy + 1]);
+        if (field[posx][posy] == '^')
+        {
+
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'v')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == '<')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == '>')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'h')
+        {
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'p')
+        {
+
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == 'r')
+        {
+
+            field[posx][posy] = '.';
+        }
+        else if (field[posx][posy] == ' ')
+        {
+            field[posx][posy] = '.';
+        }
+        // when interact with zombie
+        //        else
         gameboard2(rows, columns, zombie);
-        AZattributes(zombie);
+        z.zombieattributes(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
@@ -310,6 +498,7 @@ void board::commands(int rows, int columns, int zombie)
 
 void board::changesetting(int rows, int columns, int numofzombie)
 {
+    zombies z;
     cout << endl;
     cout << "-------------------------------------------" << endl;
     cout << "Please enter the odd number that larger than 1 for row and column that prefered!!!" << endl;
@@ -333,7 +522,7 @@ void board::changesetting(int rows, int columns, int numofzombie)
     {
         cout << endl;
         gameboard(rows, columns, zombie);
-        AZattributes(zombie);
+        z.zombieattributes(zombie);
         commands(rows, columns, zombie);
     }
 }
@@ -364,6 +553,7 @@ int main()
     // define array of characters
 
     board r1;
+    zombies z;
     if (finaldeci == 'n')
     {
         rows = 7;
@@ -371,7 +561,7 @@ int main()
         int zombie = 5;
 
         r1.gameboard(rows, columns, zombie);
-        r1.AZattributes(zombie);
+        z.zombieattributes(zombie);
 
         r1.commands(rows, columns, zombie);
     }
