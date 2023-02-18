@@ -141,8 +141,10 @@ void board::obsRock()
 
 void alien::alienhealth()
 {
-    if(alienhp+20>100){
-    lienhp=100;}
+    if(alienhp+20>100)
+    {
+        alienhp=100;
+    }
     else (alienhp=alienhp+20);
     alienattributes();
 }
