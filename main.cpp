@@ -238,10 +238,7 @@ void board::gameboard(int rows, int columns, int numofzom)
             field[i][j] = characters[no];
             char c = characters[rand() % 8];
             field[i][j] = c;
-            if (i == middleRow && j == middleColumn)
-            {
-                field[i][j] = 'A';
-            }
+           
             for (int k = 0; k < numofzom; k++)
             {
                 if (i == zombiesX[k] && j == zombiesY[k])
@@ -252,6 +249,11 @@ void board::gameboard(int rows, int columns, int numofzom)
         }
         
     }
+    int m;
+    int n;
+    m = (rows-1)/2;
+    n = (columns-1)/2;
+    field[n][m] = 'A';
     board::gameboard2(rows,columns,numofzom);
 }
 
