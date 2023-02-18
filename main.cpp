@@ -24,61 +24,22 @@ public:
     void changesetting(int rows, int columns, int numofzombie);
     void gameboard2(int rows,int columns,int numofzombie); 
     void movement(int posx, int posy);
+    void obsRock();
     
 private:
     vector<vector<char>>field;
     int rows, columns;
 };
 
-void board::movement(int posx, int posy)
-{
-    if (field[posx][posy] == '^')
-    {
-        field[posx][posy] = '.';
-    }
-    else if (field[posx][posy] == 'v')
-    {
-        field[posx][posy] = '.';
-    }
-    else if (field[posx][posy] == '<')
-    {
-        field[posx][posy] = '.';
-    }
-    else if (field[posx][posy] == '>')
-    {
-        field[posx][posy] = '.';
-    }
-    else if (field[posx][posy] == 'h')
-    {
-        field[posx][posy] = '.';
-    }
-    else if (field[posx][posy] == 'p')
-    {
-        field[posx][posy] = '.';
-    }
-    else if (field[posx][posy] == 'r')
-    {
-        field[posx][posy] = '.';
-    }
-    else if (field[posx][posy] == ' ')
-    {
-        field[posx][posy] = '.';
-    }
-}
+
 
 class alien
 {
 public:
     void alienattributes();
-    void health()
-    {
-        if(alienlife+20>100){
-        alienlife=100;}
-        else (alienlife=alienlife+20);
-       
-    }
-private:
-    int alienlife=100;
+    void alienhealth();
+    
+    int alienlife=10;
     int alienattack=0;
 };
 
@@ -92,11 +53,94 @@ private:
     vector<int>zombiedata;
 };
 
+
 void alien::alienattributes()
 {
     cout << "-------------------------------------------------" << endl;
     cout << "Alien:" << setw(12) << "Life=> " << alienlife << "  Attack=> " << alienattack << endl;
 }
+void board::movement(int posx, int posy)
+{
+    alien a;
+    if (field[posx][posy] == '^')
+    {
+        field[posx][posy] = '.';
+        swap(field[posx-1][posy], field[posx - 2][posy]);
+        field[posx][posy] = '.';
+    }
+    else if (field[posx][posy] == 'v')
+    {
+        field[posx][posy] = '.';
+        swap(field[posx+1][posy], field[posx + 2][posy]);
+    }
+    else if (field[posx][posy] == '<')
+    {
+        field[posx][posy] = '.';
+        swap(field[posx][posy-1], field[posx][posy - 2]);
+        field[posx][posy] = '.';
+    }
+    else if (field[posx][posy] == '>')
+    {
+        field[posx][posy] = '.';
+        swap(field[posx][posy+1], field[posx][posy + 2]);
+        field[posx][posy] = '.';
+    }
+    else if (field[posx][posy] == 'h')
+    {
+        field[posx][posy] = '.';
+        a.alienhealth();
+    }
+    else if (field[posx][posy] == 'p')
+    {
+        field[posx][posy] = '.';
+    }
+    else if (field[posx][posy] == 'r')
+    {
+        field[posx][posy] = '.';
+        obsRock();
+    }
+    else if (field[posx][posy] == ' ')
+    {
+        field[posx][posy] = '.';
+    }
+}
+
+void board::obsRock() 
+    {
+        alien a;
+        char objects[] = {'h','p',' '};
+        int noofobj = sizeof(objects)/sizeof(objects[0]);
+        
+        
+        srand(time(NULL));
+        
+        
+        char objnew = objects[rand() % noofobj];
+        
+        if (objnew == 'h') 
+        {
+            cout << "Alien found a health pack" << endl;
+            a.alienhealth();
+
+        }
+        else if (objnew == 'p') 
+        {
+            cout << "Alien found a pod" << endl;
+            //add pod function
+        }
+        else 
+        {
+            cout<<"Nothing under the rock"<<endl;
+        }
+    }
+void alien::alienhealth()
+    {
+        if(alienlife+20>100){
+        alienlife=100;}
+        else (alienlife=alienlife+20);
+       cout<<alienlife;
+       alienattributes();
+    }
 
 void zombies::updatezombies(int numofzom)
 {
@@ -209,7 +253,7 @@ void board::gameboard(int rows, int columns, int numofzom)
     //calculate the middle row and column
     int middleRow = (rows - 1) / 2;
     int middleColumn = (columns - 1) / 2;
-
+    
     field.resize(columns);
     for (int i = 0; i < columns; ++i)
     {
@@ -236,7 +280,7 @@ void board::gameboard(int rows, int columns, int numofzom)
             int no = rand() % numofobject;
             // modulo operator to cycle through the characters array
             field[i][j] = characters[no];
-            char c = characters[rand() % 8];
+            char c = characters[rand() % numofobject];
             field[i][j] = c;
            
             for (int k = 0; k < numofzom; k++)
