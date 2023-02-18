@@ -31,7 +31,14 @@ private:
     int rows, columns;
 };
 
+int zombielabell[9];
+int zombiehp[9];
+int zombieattackk[9];
+int zombierangee[9];
 
+int alienhp=10;
+
+int alienattackk;
 
 class alien
 {
@@ -41,6 +48,7 @@ public:
     
     int alienlife=10;
     int alienattack=0;
+    
 };
 
 class zombies
@@ -51,13 +59,16 @@ public:
 private:
     int zombielabel,zombielife,zombieattack,zombierange;
     vector<int>zombiedata;
+   
+
 };
 
 
 void alien::alienattributes()
 {
     cout << "-------------------------------------------------" << endl;
-    cout << "Alien:" << setw(12) << "Life=> " << alienlife << "  Attack=> " << alienattack << endl;
+    cout << "Alien:" << setw(12) << "Life=> " << alienhp << "  Attack=> " << alienattackk << endl;
+    
 }
 void board::movement(int posx, int posy)
 {
@@ -133,12 +144,14 @@ void board::obsRock()
             cout<<"Nothing under the rock"<<endl;
         }
     }
+
 void alien::alienhealth()
     {
-        if(alienlife+20>100){
-        alienlife=100;}
-        else (alienlife=alienlife+20);
-       cout<<alienlife;
+        
+        if(alienhp+20>100){
+        alienhp=100;}
+        else (alienhp=alienhp+20);
+       
        alienattributes();
     }
 
@@ -147,11 +160,11 @@ void zombies::updatezombies(int numofzom)
     alien a;
     a.alienattributes();
     
-    for(int n=0;n<zombiedata.size();n=n+4)
+    for(int n=0;n<numofzom;++n)
     {
         
-    cout << "Zombie" << zombiedata[n] << ":  "
-             << "Life=> " << zombiedata[n+1] << setw(12) << "Attack=> " << zombiedata[n+2] << setw(12) << "Range=> " << zombiedata[n+3] << endl;
+    cout << "Zombie" << zombielabell[n] << ":  "
+             << "Life=> " << zombiehp[n] << setw(12) << "Attack=> " << zombieattackk[n] << setw(12) << "Range=> " << zombierangee[n] << endl;
     }
     cout << "-------------------------------------------------" << endl;
  
@@ -161,20 +174,21 @@ void zombies::zombieattributes(int numofzom)
 {
     cout << endl;
    
-    for (int m = 1; m < numofzom + 1; ++m)
+    for (int m = 0; m < numofzom ; ++m)
     {
         //Randomly assign zombie life,attack and range
-        zombielabel=m;
+        zombielabel=m+1;
         zombielife = rand() % 200 + 100;
         zombieattack = rand() % 15 + 5;
         zombierange = rand() % 5 + 1;
-       
-        zombiedata.push_back(zombielabel);
-        zombiedata.push_back(zombielife);
-        zombiedata.push_back(zombieattack);
-        zombiedata.push_back(zombierange);
+        zombielabell[m]=zombielabel;
+        zombiehp[m]=zombielife;
+        zombieattackk[m]=zombieattack;
+        zombierangee[m]=zombierange;
         
+
     }
+    
     updatezombies(numofzom);
 }
 
@@ -312,9 +326,9 @@ void board::commands(int rows, int columns, int zombie)
     cout << "Please enter command => ";
     cin >> command;
     int posx, posy;
-    for (int i = 0; i < rows; i++)
+    for (int i = 0; i < rows; ++i)
     {
-        for (int j = 0; j < columns; j++)
+        for (int j = 0; j < columns; ++j)
         {
             if (field[i][j] == 'A')
             {
