@@ -680,12 +680,77 @@ void board::commands(int rows, int columns, int zombie)
         cout << endl;
         commands(rows, columns, zombie);
     }
+    
+    else if(command == "arrow")
+    {
+        changearrowdirection();
+        cout << "Please enter to continue..." << endl;
+        cin.ignore();
+        cin.ignore();
+        gameboard2(rows, columns, zombie);
+        z.updatezombies(zombie);
+        cout << endl;
+        commands(rows, columns, zombie);
+    }
+    
     else
     {
         cout << "--------------------------------------------------" << endl;
         cout << "Please enter correctly!!!" << endl;
         commands(rows, columns, zombie);
     }
+}
+
+void board::changearrowdirection()
+{
+    cout<<"------------------------------------------------------------------"<<endl;
+    cout<<"Please enter the row,column and direction(up,down,left,right)=>";
+    int findrow,findcolumn;
+    string changedirection;
+    cin>>findrow;
+    cin>>findcolumn;
+    cin>>changedirection;
+
+    if(changedirection=="up"||changedirection=="down"||changedirection=="left"||changedirection=="right")
+    {
+        cout<<endl;
+    }
+    else
+    {
+        cout<<"For direction,please only enter either up or down or left or right!!!";
+        cout<<"Please try it again"<<endl<<endl;
+        changearrowdirection();
+    }
+    
+    char kl=field[findcolumn-1][findrow-1];
+    
+   
+    if (kl=='^'||kl=='v'||kl=='<'||kl=='>')
+    {
+        cout<<"The arrow is "<<kl<<endl;
+        
+        if (changedirection=="up"){
+            field[findcolumn-1][findrow-1]='^';
+            cout<<"The arrow after changes is "<<'^'<<endl;}
+        else if(changedirection=="down"){
+            field[findcolumn-1][findrow-1]='v';
+            cout<<"The arrow after changes is "<<'v'<<endl;}
+        else if (changedirection=="left"){
+            field[findcolumn-1][findrow-1]='<';
+            cout<<"The arrow after changes is "<<'<'<<endl;}
+        else if (changedirection=="right"){
+            field[findcolumn-1][findrow-1]='>';
+            cout<<"The arrow after changes is "<<'^'<<endl;}
+       
+    }
+    else{
+        cout<<"--------------------------------------------------------------------------------"<<endl;
+        cout<<"The arrow doesn't exist at the row and column that you enter.Please try again!"<<endl;
+        board::changearrowdirection();
+    }
+    
+
+    
 }
 
 void board::changesetting(int rows, int columns, int numofzombie)
