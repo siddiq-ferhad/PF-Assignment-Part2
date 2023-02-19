@@ -26,8 +26,10 @@ public:
     void movement(int posx, int posy);
     void obsRock();
     void pod();
-    void zombieDies();
+    // void zombieDies();
+    void randtrail();
     int alienX, alienY;
+    int numofobj;
     void saveGame(int posx, int posy, int numofzom);
 
 private:
@@ -102,6 +104,7 @@ void board::movement(int posx, int posy)
     {
         field[posx][posy] = '.';
         swap(field[posx - 1][posy], field[posx - 2][posy]);
+        
         b.zombieMove(numofzom, rows, columns);
         field[posx][posy] = '.';
         alienattackk += 20;
@@ -115,6 +118,7 @@ void board::movement(int posx, int posy)
         field[posx][posy] = '.';
         swap(field[posx + 1][posy], field[posx + 2][posy]);
         field[posx][posy] = '.';
+        randtrail();
         b.zombieMove(numofzom, rows, columns);
         alienattackk += 20;
         cout << "Alien have add 20 attack" << endl;
@@ -127,6 +131,7 @@ void board::movement(int posx, int posy)
         field[posx][posy] = '.';
         swap(field[posx][posy - 1], field[posx][posy - 2]);
         field[posx][posy] = '.';
+        randtrail();
         b.zombieMove(numofzom, rows, columns);
         alienattackk += 20;
         cout << "Alien have add 20 attack" << endl;
@@ -139,6 +144,7 @@ void board::movement(int posx, int posy)
         field[posx][posy] = '.';
         swap(field[posx][posy + 1], field[posx][posy + 2]);
         field[posx][posy] = '.';
+        randtrail();
         b.zombieMove(numofzom, rows, columns);
         alienattackk += 20;
         cout << "Alien have add 20 attack" << endl;
@@ -150,83 +156,136 @@ void board::movement(int posx, int posy)
     {
         field[posx][posy] = '.';
         a.alienhealth();
+        randtrail();
         b.zombieMove(numofzom, rows, columns);
     }
     else if (field[posx][posy] == 'p')
     {
         field[posx][posy] = '.';
         pod();
+        randtrail();
         b.zombieMove(numofzom, rows, columns);
     }
     else if (field[posx][posy] == 'r')
     {
         field[posx][posy] = '.';
         obsRock();
+        randtrail();
         b.zombieMove(numofzom, rows, columns);
     }
     else if (field[posx][posy] == ' ')
     {
         field[posx][posy] = '.';
+        randtrail();
         b.zombieMove(numofzom, rows, columns);
     }
     else if (field[posx][posy] == '1')
     {
         zombiehp[0] = zombiehp[0] -= alienattackk;
-        zombieDies();
+
+        if (zombiehp[0] <= 0)
+        {
+            cout << "Zombie 1 has been defeated" << endl;
+            zombiehp[0] = 0;
+            field[posx][posy] = ' ';
+        }
     }
     else if (field[posx][posy] == '2')
     {
         zombiehp[1] = zombiehp[1] -= alienattackk;
-        zombieDies();
+        if (zombiehp[1] <= 0)
+        {
+            cout << "Zombie 2 has been defeated" << endl;
+            zombiehp[1] = 0;
+            field[posx][posy] = ' ';
+        }
     }
     else if (field[posx][posy] == '3')
     {
         zombiehp[2] = zombiehp[2] -= alienattackk;
-        zombieDies();
+        if (zombiehp[2] <= 0)
+        {
+            cout << "Zombie 3 has been defeated" << endl;
+            zombiehp[2] = 0;
+            field[posx][posy] = ' ';
+        }
     }
     else if (field[posx][posy] == '4')
     {
         zombiehp[3] = zombiehp[3] -= alienattackk;
-        zombieDies();
+        if (zombiehp[3] <= 0)
+        {
+            cout << "Zombie 4 has been defeated" << endl;
+            zombiehp[3] = 0;
+            field[posx][posy] = ' ';
+        }
     }
+
     else if (field[posx][posy] == '5')
     {
         zombiehp[4] = zombiehp[4] -= alienattackk;
-        zombieDies();
+        if (zombiehp[4] <= 0)
+        {
+            cout << "Zombie 5 has been defeated" << endl;
+            zombiehp[4] = 0;
+            field[posx][posy] = ' ';
+        }
     }
     else if (field[posx][posy] == '6')
     {
         zombiehp[5] = zombiehp[5] -= alienattackk;
-        zombieDies();
+        if (zombiehp[5] <= 0)
+        {
+            cout << "Zombie 6 has been defeated" << endl;
+            zombiehp[5] = 0;
+            field[posx][posy] = ' ';
+        }
     }
     else if (field[posx][posy] == '7')
     {
         zombiehp[6] = zombiehp[6] -= alienattackk;
-        zombieDies();
+        {
+            cout << "Zombie 7 has been defeated" << endl;
+            zombiehp[6] = 0;
+            field[posx][posy] = ' ';
+        }
     }
     else if (field[posx][posy] == '8')
     {
         zombiehp[7] = zombiehp[7] -= alienattackk;
-        zombieDies();
+        if (zombiehp[7] <= 0)
+        {
+            cout << "Zombie 8 has been defeated" << endl;
+            zombiehp[7] = 0;
+            field[posx][posy] = ' ';
+        }
     }
     else if (field[posx][posy] == '9')
     {
         zombiehp[8] = zombiehp[8] -= alienattackk;
-        zombieDies();
-    }
-}
-
-void board::zombieDies()
-{
-    for (int i = 0; i < 9; ++i)
-    {
-        if (zombiehp[i] <= 0)
+        if (zombiehp[8] <= 0)
         {
-            cout << "Zombie" << i << "has been defeated" << endl;
-            field[posx][posy] == '.';
+            cout << "Zombie 9 has been defeated" << endl;
+            zombiehp[8] = 0;
+            field[posx][posy] = ' ';
         }
     }
 }
+
+// void board::zombieDies()
+// {
+
+//     for(int i=0; i<numofzom; ++i)
+//     {
+//         if (zombiehp[i] <= 0)
+//         {
+//             zombiehp[i] = 0;
+//             field[posx][posy] = ' ';
+//             cout << "Zombie" << i << "has been defeated" << endl;
+//         }
+
+//     }
+// }
 
 void board::obsRock()
 {
@@ -280,6 +339,15 @@ void board::pod()
     // Damage the nearest zombie.
     zombiehp[nearest_zombie] -= 10;
     cout << "Zombie " << nearest_zombie + 1 << " lost 10 health" << endl;
+}
+
+void board::randtrail()
+{
+    char characters[] = {' ', '^', 'v', '>', '<', 'h', 'p', 'r'};
+    if(field[posx][posy] = '.')
+    {
+        field[posx][posy] = characters[rand() % 8]; 
+    }
 }
 
 void alien::alienhealth()
@@ -391,7 +459,7 @@ void help()
 void board::gameboard2(int rows, int columns, int zombie)
 {
     cout << endl;
-    system("CLS");
+    // system("CLS");
     cout << setw(5);
     for (int i = 0; i < rows; ++i)
     {
@@ -699,3 +767,4 @@ int main()
         main();
     }
 }
+
