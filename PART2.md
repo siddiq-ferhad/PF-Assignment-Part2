@@ -29,7 +29,7 @@ List all the features not yet done. Remove this section if there is no incomplet
 2) The pod part, pod can't attack the nearest zombie
 ## Additional Features
 
--
+None
 
 ## Contributions
 
