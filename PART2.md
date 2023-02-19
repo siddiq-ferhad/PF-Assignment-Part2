@@ -2,13 +2,11 @@
 
 ## Video Demo
 
-Please provide the YouTube link to your [Video Demo](https://youtu.be/2Yp9cdy-eII)
+[Video Demo](https://youtu.be/2Yp9cdy-eII)
 
 ## Minimum Requirements
 
 ### Completed
-
-List all the features completed.
 
 1) 6.2. Game board
 
@@ -24,28 +22,23 @@ To be done requirement
 
 ### To Do
 
-List all the features not yet done. Remove this section if there is no incomplete requirements.
-
-1)The pod cannot attack the zombie that nearest to its
-
+1) The pod cannot attack the zombie that nearest to it.
 
 ## Additional Features
 
-none
+None
 
 ## Contributions
-
-List down the contribution of each group members.
 
 SIDDIQ FERHAD BIN KHAIRIL ANUAL
 
 1. Generate game board according to the number of rows and columns
 2. Design the gameboard
-3. Save and Load feature
+3. Save and load feature
 4. Alien Movements
-5. help fix bugs
-6. board objects function
-7. help function
+5. Help fix bugs
+6. Board objects function
+7. Help function
 
 MUHAMMAD RINO FRAWIDYA BIN SUHERI
 
@@ -53,9 +46,9 @@ MUHAMMAD RINO FRAWIDYA BIN SUHERI
 2. Locate alien at the middle
 3. Display the gameobject
 4. Alien Movements
-5. help fix bugs
-6. objects in board function
-7. zombies actions
+5. Help fix bugs
+6. Objects in board function
+7. Zombies actions
 
 LING CHEE XIANG
 
@@ -63,10 +56,6 @@ LING CHEE XIANG
 2. Identity user input odd number or not for row and column
 3. Show the fixed number of rows and column and ask user to continue with these number or create new one*
 4. Alien Movements
-5. help fix bugs
-6. alien and zombie attributes
-7. change arrow direction functions
-
-## Problems Encountered & Solutions
-
-Describe the problems encountered and provide the solutions / plan for the solutions.
+5. Help fix bugs
+6. Alien and zombie attributes
+7. Change arrow direction functions
