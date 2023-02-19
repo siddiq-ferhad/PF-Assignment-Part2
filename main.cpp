@@ -414,6 +414,8 @@ void zombies::zombieattributes(int numofzom)
 
 void zombies::zombieMove(int numofzom, int rows, int columns)
 {
+    cout<<"------------------------------"<<endl;
+    cout<<"Zombie "<<num<<" turn"<<endl;
     for (int i = 0; i < numofzom; i++)
     {
         int direction = rand() % 4; // 0: up, 1: down, 2: left, 3: right
@@ -440,7 +442,12 @@ void zombies::zombieMove(int numofzom, int rows, int columns)
 
         zombiesX[i] += dx;
         zombiesY[i] += dy;
-    }
+        num=num+1;
+        if(num>4)
+        {
+        num=1;
+        }
+     }
 }
 
 void help()
