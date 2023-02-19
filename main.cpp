@@ -471,7 +471,7 @@ void help()
 void board::gameboard2(int rows, int columns, int zombie)
 {
     cout << endl;
-    // system("CLS");
+    system("CLS");
     cout << setw(5);
     for (int i = 0; i < rows; ++i)
     {
