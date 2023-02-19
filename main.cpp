@@ -25,13 +25,14 @@ public:
     void gameboard2(int rows, int columns, int numofzombie);
     void movement(int posx, int posy);
     void obsRock();
-    void pod();
-    // void zombieDies();
+    void pod(int rows, int columns, int numofzom);
     void randTrail(int rows, int columns);
     int alienX, alienY;
     int numofobj;
     void saveGame(int posx, int posy, int numofzom);
     void changearrowdirection();
+    void zombAttack();
+    
 
 private:
     vector<vector<char>> field;
@@ -48,6 +49,7 @@ int numofzom;
 int zombnum;
 int alienhp = 100;
 int alienattackk = 0;
+int zombierange;
 
 class alien
 {
@@ -62,7 +64,9 @@ public:
     void zombieattributes(int numofzom);
     void updatezombies(int numofzom);
     void zombieMove(int rows, int columns, int numofzom);
-    // void zombieDies();
+    void zombAttack();
+    
+    
 private:
     int zombielabel, zombielife, zombieattack, zombierange;
 };
@@ -158,7 +162,7 @@ void board::movement(int posx, int posy)
     else if (field[posx][posy] == 'p')
     {
         field[posx][posy] = '.';
-        pod();
+        pod(rows,columns,numofzom);
         b.zombieMove(numofzom, rows, columns);
     }
     else if (field[posx][posy] == 'r')
@@ -287,7 +291,7 @@ void board::obsRock()
         cout << "Please enter to continue..." << endl;
         cin.ignore();
         cin.ignore();
-        pod();
+        pod(rows,columns,numofzom);
     }
     else
     {
@@ -295,34 +299,33 @@ void board::obsRock()
     }
 }
 
-void board::pod()
+void board::pod(int rows, int columns, int numofzom)
 {
-    cout << "Alien found a pod" << endl;
-    cout << "Zombies lose 10 health each" << endl;
-    cout << "Please press enter to continue..." << endl;
-    cin.ignore();
-
-    // Find the index of the nearest zombie to the alien.
-    int nearest_zombie = 0;
-    int nearest_distance = abs(zombiesX[0] - alienX) + abs(zombiesY[0] - alienY);
-    for (int i = 1; i < 9; ++i)
+    int i, minDistance = 99, minDisIndex = 0, distance;
+    for (i = 0; i < numofzom; i++)
     {
-        int distance = abs(zombiesX[i] - alienX) + abs(zombiesY[i] - alienY);
-        if (distance < nearest_distance)
+        distance = (abs(zombiesX[i] - rows) + abs(zombiesY[i] - columns));
+        if (minDistance > distance)
         {
-            nearest_zombie = i;
-            nearest_distance = distance;
+            minDistance = distance;
+            minDisIndex = i;
         }
     }
 
-    // Damage the nearest zombie.
-    zombiehp[nearest_zombie] -= 10;
-    cout << "Zombie " << nearest_zombie + 1 << " lost 10 health" << endl;
+    if (minDisIndex != -1)
+    {
+        cout << "Zombie " << minDisIndex + 1 << " is closest to the pod. It receives 10 damage.\n\n";
+        zombiehp[minDisIndex] -= 10;
+    }
+    else
+    {
+        cout << "No zombie found near the pod.\n\n";
+    }
 }
 
 void board::randTrail(int rows,int columns)
 {
-    char randObj[] = { 'r', 'h', 'p', '<', '>', 'v', '^'};
+    char randObj[] = {'r', 'h', 'p', '<', '>', 'v', '^', ' '};
     int numofobj = 8;
     char c = randObj[rand() % numofobj];
     for (int i = 0; i < rows; i++)
@@ -394,6 +397,21 @@ void zombies::zombieattributes(int numofzom)
     updatezombies(numofzom);
 }
 
+// void board::zombAttack()
+// {
+//     int m;
+//     int rows, columns;
+//     if ((abs(rows - alienX) <= zombierange) && (abs(columns - alienY) <= zombierange))
+//     {
+//         cout << "Zombie " << m + 1 << " attacks Alien with damage " << zombieattackk[m] << "\n";
+//         alienhp -= zombieattackk[m];
+//     }
+//     else
+//     {
+//         cout << "Zombie cannot attack. Alien is out of range.\n\n";
+//     }
+// }
+
 void zombies::zombieMove(int numofzom, int rows, int columns)
 {
     for (int i = 0; i < numofzom; i++)
@@ -446,7 +464,7 @@ void help()
 void board::gameboard2(int rows, int columns, int zombie)
 {
     cout << endl;
-    // system("CLS");
+    system("CLS");
     cout << setw(5);
     for (int i = 0; i < rows; ++i)
     {
@@ -637,6 +655,7 @@ void board::commands(int rows, int columns, int zombie)
         movement(posx, posy);
         gameboard2(rows, columns, zombie);
         randTrail(rows,columns);
+        zombAttack();
         z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
@@ -647,6 +666,7 @@ void board::commands(int rows, int columns, int zombie)
         movement(posx, posy);
         gameboard2(rows, columns, zombie);
         randTrail(rows,columns);
+        zombAttack();
         z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
@@ -657,6 +677,7 @@ void board::commands(int rows, int columns, int zombie)
         movement(posx, posy);
         gameboard2(rows, columns, zombie);
         randTrail(rows,columns);
+        zombAttack();
         z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
@@ -667,6 +688,7 @@ void board::commands(int rows, int columns, int zombie)
         movement(posx, posy);
         gameboard2(rows, columns, zombie);
         randTrail(rows,columns);
+        zombAttack();
         z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
@@ -823,3 +845,4 @@ int main()
         main();
     }
 }
+
