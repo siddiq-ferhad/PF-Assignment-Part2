@@ -2,8 +2,10 @@
 
 Alien vs. Zombie is a simplified, text-based version program that was inspired from the game Alien Path with several modifications of our own. In this program, the user navigates an alien on a path to destroy zombies. It combines several elements of role-playing game, path-planning, puzzle, and strategy. 
 
-[Video Demo] part 1=(https://youtu.be/Jzz_fhH3CvA).
-             part 2=(https://youtu.be/2Yp9cdy-eII)
+Video Demo
+
+[Part 1](https://youtu.be/Jzz_fhH3CvA)
+[Part 2](https://youtu.be/2Yp9cdy-eII)
 
 ## Compilation Instructions
 
