@@ -23,6 +23,7 @@ To be done requirement
 ### To Do
 
 1) The pod cannot attack the zombie that nearest to it.
+2) Something zombie can't move during their turn.
 
 ## Additional Features
 
