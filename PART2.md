@@ -10,47 +10,54 @@ Please provide the YouTube link to your [Video Demo](https://youtube.com).
 
 List all the features completed.
 
-Completed requiremnets
-1) 6.2. Game board
-2) 6.3. Game Characters
-    a) 6.3.1.Attributes
-    b) 6.3.2.Movement and Attack
-    c) 6.3.3.Multiple Zombies
-2) 6.4.Game Objects
-3) 6.5.Game Controls
-    a)6.5.1.Saving and Loading Game File
-4) 6.6.Game Flow
+1. Cool Feature #1
+2. Cool Feature #2
+3. *add more*
+
 ### To Do
 
 List all the features not yet done. Remove this section if there is no incomplete requirements.
 
-1)The zombie attack alien part
-2)Zombie can't move every times during its turn.
-2) The pod part, pod can't attack the nearest zombie
+1. Cool Feature #1
+2. *add mor
+
 ## Additional Features
 
-None
+Describe the additional features that has been implemented.
 
 ## Contributions
 
 List down the contribution of each group members.
 
-For example:
+SIDDIQ FERHAD BIN KHAIRIL ANUAL
 
-### Tony Stark
+1. Generate game board according to the number of rows and columns
+2. Design the gameboard
+3. Save and Load feature
+4. Alien Movements
+5. help fix bugs
+6. board objects function
+7. help function
 
-1. Randomly generate game board.
-2. *add more*
+MUHAMMAD RINO FRAWIDYA BIN SUHERI
 
-### Steve Rogers
+1. Generate game board according to the number of rows and columns
+2. Locate alien at the middle
+3. Display the gameobject
+4. Alien Movements
+5. help fix bugs
+6. objects in board function
+7. zombies actions
 
-1. Zombie movement and attack behaviour.
-2. *add more*
+LING CHEE XIANG
 
-### Dr. Strange
-
-1. Implement all game objects.
-2. *add more*
+1. Converted the user's input (y/n) to lowercase
+2. Identity user input odd number or not for row and column
+3. Show the fixed number of rows and column and ask user to continue with these number or create new one*
+4. Alien Movements
+5. help fix bugs
+6. alien and zombie attributes
+7. change arrow direction functions
 
 ## Problems Encountered & Solutions
 
