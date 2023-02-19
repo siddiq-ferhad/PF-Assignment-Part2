@@ -319,7 +319,7 @@ void board::obsRock()
 void board::pod()
 {
     cout << "Alien found a pod" << endl;
-    cout << "Zombies lose 10 health each" << endl;
+    cout << "Zombies lose 10 health " << endl;
     cout << "Please press enter to continue..." << endl;
     cin.ignore();
 
