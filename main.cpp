@@ -22,18 +22,20 @@ public:
     void gameboard(int rows, int columns, int zombie);
     void commands(int rows, int columns, int zombie);
     void changesetting(int rows, int columns, int numofzombie);
-    void gameboard2(int rows,int columns,int numofzombie); 
+    void gameboard2(int rows, int columns, int numofzombie);
     void movement(int posx, int posy);
     void obsRock();
     void pod();
+    void zombieDies();
     int alienX, alienY;
-    
-    
+    void saveGame(int posx, int posy, int numofzom);
+
 private:
-    vector<vector<char>>field;
+    vector<vector<char>> field;
     int rows, columns;
 };
 
+int posx, posy;
 int zombielabell[9];
 int zombiehp[9];
 int zombieattackk[9];
@@ -41,19 +43,14 @@ int zombierangee[9];
 int zombiesX[10], zombiesY[10];
 int numofzom;
 int zombnum;
-
-int alienhp=100;
-
-int alienattackk=0;
+int alienhp = 100;
+int alienattackk = 0;
 
 class alien
 {
 public:
     void alienattributes();
     void alienhealth();
-    
-    
-    
 };
 
 class zombies
@@ -61,21 +58,42 @@ class zombies
 public:
     void zombieattributes(int numofzom);
     void updatezombies(int numofzom);
-    void zombieMove(int rows,int columns, int numofzom);
+    void zombieMove(int rows, int columns, int numofzom);
+    // void zombieDies();
 private:
-    int zombielabel,zombielife,zombieattack,zombierange;
-    
-   
-
+    int zombielabel, zombielife, zombieattack, zombierange;
 };
-
 
 void alien::alienattributes()
 {
     cout << "-------------------------------------------------" << endl;
     cout << "Alien:" << setw(12) << "Life=> " << alienhp << "  Attack=> " << alienattackk << endl;
-    
 }
+
+void board::saveGame(int posx, int posy, int numofzom)
+{
+    string filename;
+    cout << "Enter the file name to save the current game => ";
+    cin >> filename;
+    ofstream outfile;
+    outfile.open(filename);
+    outfile << posx << " " << posy << " " << numofzom << endl;
+    // Save the alien attributes
+    outfile << alienhp << " " << alienattackk << endl;
+    // Save the zombie attributes
+    for (int i = 0; i < numofzom; i++)
+    {
+        outfile << zombielabell[i] << " " << zombiehp[i] << " " << zombieattackk[i] << " " << zombierangee[i] << endl;
+    }
+    outfile.close();
+    cout << "-----------------------" << endl;
+    cout << "Game saved successfully" << endl;
+    cout << "-----------------------" << endl;
+    cout << "Please enter to continue..." << endl;
+    cin.ignore();
+    cin.ignore();
+}
+
 void board::movement(int posx, int posy)
 {
     alien a;
@@ -83,11 +101,11 @@ void board::movement(int posx, int posy)
     if (field[posx][posy] == '^')
     {
         field[posx][posy] = '.';
-        swap(field[posx-1][posy], field[posx - 2][posy]);
-        b.zombieMove(numofzom,rows,columns);
+        swap(field[posx - 1][posy], field[posx - 2][posy]);
+        b.zombieMove(numofzom, rows, columns);
         field[posx][posy] = '.';
-        alienattackk+=20;
-        cout<<"Alien have add 20 attack"<<endl;
+        alienattackk += 20;
+        cout << "Alien have add 20 attack" << endl;
         cout << "Please enter to continue..." << endl;
         cin.ignore();
         cin.ignore();
@@ -95,11 +113,11 @@ void board::movement(int posx, int posy)
     else if (field[posx][posy] == 'v')
     {
         field[posx][posy] = '.';
-        swap(field[posx+1][posy], field[posx + 2][posy]);
+        swap(field[posx + 1][posy], field[posx + 2][posy]);
         field[posx][posy] = '.';
-        b.zombieMove(numofzom,rows,columns);
-        alienattackk+=20;
-        cout<<"Alien have add 20 attack"<<endl;
+        b.zombieMove(numofzom, rows, columns);
+        alienattackk += 20;
+        cout << "Alien have add 20 attack" << endl;
         cout << "Please enter to continue..." << endl;
         cin.ignore();
         cin.ignore();
@@ -107,11 +125,11 @@ void board::movement(int posx, int posy)
     else if (field[posx][posy] == '<')
     {
         field[posx][posy] = '.';
-        swap(field[posx][posy-1], field[posx][posy - 2]);
+        swap(field[posx][posy - 1], field[posx][posy - 2]);
         field[posx][posy] = '.';
-        b.zombieMove(numofzom,rows,columns);
-        alienattackk+=20;
-        cout<<"Alien have add 20 attack"<<endl;
+        b.zombieMove(numofzom, rows, columns);
+        alienattackk += 20;
+        cout << "Alien have add 20 attack" << endl;
         cout << "Please enter to continue..." << endl;
         cin.ignore();
         cin.ignore();
@@ -119,11 +137,11 @@ void board::movement(int posx, int posy)
     else if (field[posx][posy] == '>')
     {
         field[posx][posy] = '.';
-        swap(field[posx][posy+1], field[posx][posy + 2]);
+        swap(field[posx][posy + 1], field[posx][posy + 2]);
         field[posx][posy] = '.';
-        b.zombieMove(numofzom,rows,columns);
-        alienattackk+=20;
-        cout<<"Alien have add 20 attack"<<endl;
+        b.zombieMove(numofzom, rows, columns);
+        alienattackk += 20;
+        cout << "Alien have add 20 attack" << endl;
         cout << "Please enter to continue..." << endl;
         cin.ignore();
         cin.ignore();
@@ -132,185 +150,196 @@ void board::movement(int posx, int posy)
     {
         field[posx][posy] = '.';
         a.alienhealth();
-        b.zombieMove(numofzom,rows,columns);
-        
+        b.zombieMove(numofzom, rows, columns);
     }
     else if (field[posx][posy] == 'p')
     {
         field[posx][posy] = '.';
         pod();
-        b.zombieMove(numofzom,rows,columns);
-        
+        b.zombieMove(numofzom, rows, columns);
     }
     else if (field[posx][posy] == 'r')
     {
         field[posx][posy] = '.';
         obsRock();
-        b.zombieMove(numofzom,rows,columns);
+        b.zombieMove(numofzom, rows, columns);
     }
     else if (field[posx][posy] == ' ')
     {
         field[posx][posy] = '.';
-        b.zombieMove(numofzom,rows,columns);
-        
+        b.zombieMove(numofzom, rows, columns);
     }
     else if (field[posx][posy] == '1')
     {
-        zombiehp[0]=zombiehp[0] -= alienattackk;
+        zombiehp[0] = zombiehp[0] -= alienattackk;
+        zombieDies();
     }
     else if (field[posx][posy] == '2')
     {
-        zombiehp[1]=zombiehp[1] -= alienattackk;
+        zombiehp[1] = zombiehp[1] -= alienattackk;
+        zombieDies();
     }
     else if (field[posx][posy] == '3')
     {
-        zombiehp[2]=zombiehp[2] -= alienattackk;
+        zombiehp[2] = zombiehp[2] -= alienattackk;
+        zombieDies();
     }
-    else if (field[posx][posy]== '4')
+    else if (field[posx][posy] == '4')
     {
-        zombiehp[3]=zombiehp[3] -= alienattackk;
+        zombiehp[3] = zombiehp[3] -= alienattackk;
+        zombieDies();
     }
     else if (field[posx][posy] == '5')
     {
-        zombiehp[4]=zombiehp[4] -= alienattackk;
+        zombiehp[4] = zombiehp[4] -= alienattackk;
+        zombieDies();
     }
     else if (field[posx][posy] == '6')
     {
-        zombiehp[5]=zombiehp[5] -= alienattackk;
+        zombiehp[5] = zombiehp[5] -= alienattackk;
+        zombieDies();
     }
     else if (field[posx][posy] == '7')
     {
-        zombiehp[6]=zombiehp[6] -= alienattackk;
+        zombiehp[6] = zombiehp[6] -= alienattackk;
+        zombieDies();
     }
     else if (field[posx][posy] == '8')
     {
-        zombiehp[7]=zombiehp[7] -= alienattackk;
+        zombiehp[7] = zombiehp[7] -= alienattackk;
+        zombieDies();
     }
     else if (field[posx][posy] == '9')
     {
-        zombiehp[8]=zombiehp[8] -= alienattackk;
+        zombiehp[8] = zombiehp[8] -= alienattackk;
+        zombieDies();
     }
-    
 }
 
-
-
-void board::obsRock() 
+void board::zombieDies()
+{
+    for (int i = 0; i < 9; ++i)
     {
-        alien a;
-        char objects[] = {'h','p',' '};
-        int noofobj = sizeof(objects)/sizeof(objects[0]);
-        
-        
-        srand(time(NULL));
-        
-        
-        char objnew = objects[rand() % noofobj];
-        
-        if (objnew == 'h') 
+        if (zombiehp[i] <= 0)
         {
-            cout << "Alien found a health pack" << endl;
-            a.alienhealth();
-
-        }
-        else if (objnew == 'p') 
-        {
-            cout << "Alien found a pod" << endl;
-            cout << "Please enter to continue..." << endl;
-            cin.ignore();
-            cin.ignore();
-            pod();
-        }
-        else 
-        {
-            cout<<"Nothing under the rock"<<endl;
+            cout << "Zombie" << i << "has been defeated" << endl;
+            field[posx][posy] == '.';
         }
     }
+}
 
-    void board::pod()
-    {
-        cout << "Alien found a pod" << endl;
-        cout << "Zombies lose 10 health each" << endl;
-        cout << "Please press enter to continue..." << endl;
-        cin.ignore();
+void board::obsRock()
+{
+    alien a;
+    char objects[] = {'h', 'p', ' '};
+    int noofobj = sizeof(objects) / sizeof(objects[0]);
 
-        // Find the index of the nearest zombie to the alien.
-        int nearest_zombie = 0;
-        int nearest_distance = abs(zombiesX[0] - alienX) + abs(zombiesY[0] - alienY);
-        for (int i = 1; i < 9; ++i)
-        {
-            int distance = abs(zombiesX[i] - alienX) + abs(zombiesY[i] - alienY);
-            if (distance < nearest_distance)
-            {
-                nearest_zombie = i;
-                nearest_distance = distance;
-            }
-        }
+    srand(time(NULL));
 
-        // Damage the nearest zombie.
-        zombiehp[nearest_zombie] -= 10;
-        cout << "Zombie " << nearest_zombie + 1 << " lost 10 health" << endl;
-    }
+    char objnew = objects[rand() % noofobj];
 
-void alien::alienhealth()
+    if (objnew == 'h')
     {
         cout << "Alien found a health pack" << endl;
-        
-        if(alienhp+20>100)
-        {
-            cout<<"Alien already full of life"<<endl;
-            cout<<"No changes!!"<<endl;
-            cout << "Please enter to continue..." << endl;
-            cin.ignore();
-            cin.ignore();
-            alienhp=100;
-        }
-        else 
-        {
-        alienhp=alienhp+20;
-        cout<<"Alien have add 20 life"<<endl;
+        a.alienhealth();
+    }
+    else if (objnew == 'p')
+    {
+        cout << "Alien found a pod" << endl;
         cout << "Please enter to continue..." << endl;
         cin.ignore();
         cin.ignore();
+        pod();
+    }
+    else
+    {
+        cout << "Nothing under the rock" << endl;
+    }
+}
+
+void board::pod()
+{
+    cout << "Alien found a pod" << endl;
+    cout << "Zombies lose 10 health each" << endl;
+    cout << "Please press enter to continue..." << endl;
+    cin.ignore();
+
+    // Find the index of the nearest zombie to the alien.
+    int nearest_zombie = 0;
+    int nearest_distance = abs(zombiesX[0] - alienX) + abs(zombiesY[0] - alienY);
+    for (int i = 1; i < 9; ++i)
+    {
+        int distance = abs(zombiesX[i] - alienX) + abs(zombiesY[i] - alienY);
+        if (distance < nearest_distance)
+        {
+            nearest_zombie = i;
+            nearest_distance = distance;
         }
     }
+
+    // Damage the nearest zombie.
+    zombiehp[nearest_zombie] -= 10;
+    cout << "Zombie " << nearest_zombie + 1 << " lost 10 health" << endl;
+}
+
+void alien::alienhealth()
+{
+    cout << "Alien found a health pack" << endl;
+
+    if (alienhp + 20 > 100)
+    {
+        cout << "Alien already full of life" << endl;
+        cout << "No changes!!" << endl;
+        cout << "Please enter to continue..." << endl;
+        cin.ignore();
+        cin.ignore();
+        alienhp = 100;
+    }
+    else
+    {
+        alienhp = alienhp + 20;
+        cout << "Alien have add 20 life" << endl;
+        cout << "Please enter to continue..." << endl;
+        cin.ignore();
+        cin.ignore();
+    }
+}
 
 void zombies::updatezombies(int numofzom)
 {
     alien a;
     a.alienattributes();
-    
-    for(int n=0;n<numofzom;++n)
+
+    for (int n = 0; n < numofzom; ++n)
     {
-        
-    cout << "Zombie" << zombielabell[n] << ":  "
+
+        cout << "Zombie" << zombielabell[n] << ":  "
              << "Life=> " << zombiehp[n] << setw(12) << "Attack=> " << zombieattackk[n] << setw(12) << "Range=> " << zombierangee[n] << endl;
     }
     cout << "-------------------------------------------------" << endl;
- 
 }
 
 void zombies::zombieattributes(int numofzom)
 {
     cout << endl;
-   
-    for (int m = 0; m < numofzom ; ++m)
+
+    for (int m = 0; m < numofzom; ++m)
     {
-        //Randomly assign zombie life,attack and range
-        zombielabel=m+1;
+        // Randomly assign zombie life,attack and range
+        zombielabel = m + 1;
         zombielife = rand() % 200 + 100;
         zombieattack = rand() % 15 + 5;
         zombierange = rand() % 5 + 1;
-        zombielabell[m]=zombielabel;
-        zombiehp[m]=zombielife;
-        zombieattackk[m]=zombieattack;
-        zombierangee[m]=zombierange;
+        zombielabell[m] = zombielabel;
+        zombiehp[m] = zombielife;
+        zombieattackk[m] = zombieattack;
+        zombierangee[m] = zombierange;
     }
-    
+
     updatezombies(numofzom);
 }
 
-void zombies::zombieMove(int numofzom,int rows, int columns)
+void zombies::zombieMove(int numofzom, int rows, int columns)
 {
     for (int i = 0; i < numofzom; i++)
     {
@@ -343,20 +372,26 @@ void zombies::zombieMove(int numofzom,int rows, int columns)
 
 void help()
 {
-    //display user guide
-    cout<<"----------------------"<<endl;
-    cout<<"Command"<<endl;
-    cout<<"--------"<<endl;
-    cout<<"1) up => Move up"<<endl;cout<<"2) down => Move down"<<endl;cout<<"3) left => Move left"<<endl;cout<<"4) right => Move right"<<endl;
-    cout<<"5) help => Show the user's command"<<endl;cout<<"6) save => Save the game"<<endl;cout<<"7) load => Load the game"<<endl;cout<<"8) quit => Quit the game"<<endl;
-    cout<<"----------------------"<<endl;
+    // display user guide
+    cout << "----------------------" << endl;
+    cout << "Command" << endl;
+    cout << "--------" << endl;
+    cout << "1) up => Move up" << endl;
+    cout << "2) down => Move down" << endl;
+    cout << "3) left => Move left" << endl;
+    cout << "4) right => Move right" << endl;
+    cout << "5) help => Show the user's command" << endl;
+    cout << "6) save => Save the game" << endl;
+    cout << "7) load => Load the game" << endl;
+    cout << "8) quit => Quit the game" << endl;
+    cout << "----------------------" << endl;
 }
 
-//To display the gameboard
-void board::gameboard2(int rows,int columns,int zombie)
+// To display the gameboard
+void board::gameboard2(int rows, int columns, int zombie)
 {
-    cout<<endl;
-    //system("CLS");
+    cout << endl;
+    system("CLS");
     cout << setw(5);
     for (int i = 0; i < rows; ++i)
     {
@@ -370,7 +405,7 @@ void board::gameboard2(int rows,int columns,int zombie)
         cout << setw(2) << i + 1 << setw(2);
         for (int j = 0; j < rows; ++j)
         {
-  
+
             cout << "|";
             cout << field[i][j];
         }
@@ -382,41 +417,40 @@ void board::gameboard2(int rows,int columns,int zombie)
             cout << "+-";
         }
         cout << "+" << endl;
-             
     }
-    cout <<"   ";
+    cout << "   ";
     for (int i = 1; i <= rows; ++i)
     {
         int colnum;
-        colnum=(i)/10;
-        cout<<" ";
-        if (colnum==0)
-            cout<<"0";
+        colnum = (i) / 10;
+        cout << " ";
+        if (colnum == 0)
+            cout << "0";
         else
             cout << colnum;
     }
-    cout<<endl;
-    cout <<"   ";
-    for(int p=1;p<=rows;++p)
+    cout << endl;
+    cout << "   ";
+    for (int p = 1; p <= rows; ++p)
     {
 
         int m;
-        m=p%10;
-        cout<<" "<<m;
+        m = p % 10;
+        cout << " " << m;
     }
-    cout<<endl;
+    cout << endl;
 }
 
-//to assign value to gameboard
+// to assign value to gameboard
 void board::gameboard(int rows, int columns, int numofzom)
 {
     srand(time(NULL));
     char characters[] = {' ', '^', 'v', '>', '<', 'h', 'p', 'r', ' '};
-    
-    //calculate the middle row and column
+
+    // calculate the middle row and column
     int middleRow = (rows - 1) / 2;
     int middleColumn = (columns - 1) / 2;
-    
+
     field.resize(columns);
     for (int i = 0; i < columns; ++i)
     {
@@ -432,7 +466,7 @@ void board::gameboard(int rows, int columns, int numofzom)
         zombiesX[i] = rand() % rows;
         zombiesY[i] = rand() % columns;
     }
-    
+
     int numofobject = 9;
     // Print the grid with your specified characters
     for (int i = 0; i < columns; ++i)
@@ -445,7 +479,7 @@ void board::gameboard(int rows, int columns, int numofzom)
             field[i][j] = characters[no];
             char c = characters[rand() % numofobject];
             field[i][j] = c;
-           
+
             for (int k = 0; k < numofzom; k++)
             {
                 if (i == zombiesX[k] && j == zombiesY[k])
@@ -454,14 +488,13 @@ void board::gameboard(int rows, int columns, int numofzom)
                 }
             }
         }
-        
     }
     int m;
     int n;
-    m = (rows-1)/2;
-    n = (columns-1)/2;
+    m = (rows - 1) / 2;
+    n = (columns - 1) / 2;
     field[n][m] = 'A';
-    board::gameboard2(rows,columns,numofzom);
+    board::gameboard2(rows, columns, numofzom);
 }
 
 void board::commands(int rows, int columns, int zombie)
@@ -484,7 +517,7 @@ void board::commands(int rows, int columns, int zombie)
                 break;
             }
         }
-    } 
+    }
     if (command == "help")
     {
         help();
@@ -504,18 +537,7 @@ void board::commands(int rows, int columns, int zombie)
     }
     else if (command == "save")
     {
-        string filename;
-        cout << "Enter the file name to save the current game => ";
-        cin >> filename;
-        ofstream saveFile(filename);
-        saveFile << rows << " " << columns << " " << zombie << endl;
-        saveFile.close();
-        cout << "-----------------------" << endl;
-        cout << "Game saved successfully" << endl;
-        cout << "-----------------------" << endl;
-        cout << "Please enter to continue..." << endl;
-        cin.ignore();
-        cin.ignore();
+        saveGame(rows, columns, zombie);
         gameboard2(rows, columns, zombie);
         z.updatezombies(zombie);
         cout << endl;
@@ -530,7 +552,11 @@ void board::commands(int rows, int columns, int zombie)
         ifstream saveFile(filename);
         if (saveFile.is_open())
         {
-            saveFile >> rows >> columns >> zombie;
+            saveFile >> rows >> columns >> zombie >> alienhp >> alienattackk;
+            for (int i = 0; i < zombie; i++)
+            {
+                saveFile >> zombielabell[i] >> zombiehp[i] >> zombieattackk[i] >> zombierangee[i];
+            }
             saveFile.close();
             cout << "------------------------" << endl;
             cout << "Game loaded successfully" << endl;
@@ -539,7 +565,7 @@ void board::commands(int rows, int columns, int zombie)
             cin.ignore();
             cin.ignore();
             gameboard(rows, columns, zombie);
-            z.zombieattributes(zombie);
+            z.updatezombies(zombie);
             cout << endl;
             commands(rows, columns, zombie);
         }
@@ -591,7 +617,7 @@ void board::commands(int rows, int columns, int zombie)
         cout << "--------------------------------------------------" << endl;
         cout << "Please enter correctly!!!" << endl;
         commands(rows, columns, zombie);
-    }    
+    }
 }
 
 void board::changesetting(int rows, int columns, int numofzombie)
