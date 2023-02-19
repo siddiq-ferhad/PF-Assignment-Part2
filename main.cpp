@@ -27,10 +27,11 @@ public:
     void obsRock();
     void pod();
     // void zombieDies();
-    void randtrail();
+    void randTrail(int rows, int columns);
     int alienX, alienY;
     int numofobj;
     void saveGame(int posx, int posy, int numofzom);
+    void changearrowdirection();
 
 private:
     vector<vector<char>> field;
@@ -104,7 +105,6 @@ void board::movement(int posx, int posy)
     {
         field[posx][posy] = '.';
         swap(field[posx - 1][posy], field[posx - 2][posy]);
-        
         b.zombieMove(numofzom, rows, columns);
         field[posx][posy] = '.';
         alienattackk += 20;
@@ -118,7 +118,6 @@ void board::movement(int posx, int posy)
         field[posx][posy] = '.';
         swap(field[posx + 1][posy], field[posx + 2][posy]);
         field[posx][posy] = '.';
-        randtrail();
         b.zombieMove(numofzom, rows, columns);
         alienattackk += 20;
         cout << "Alien have add 20 attack" << endl;
@@ -131,7 +130,6 @@ void board::movement(int posx, int posy)
         field[posx][posy] = '.';
         swap(field[posx][posy - 1], field[posx][posy - 2]);
         field[posx][posy] = '.';
-        randtrail();
         b.zombieMove(numofzom, rows, columns);
         alienattackk += 20;
         cout << "Alien have add 20 attack" << endl;
@@ -144,7 +142,6 @@ void board::movement(int posx, int posy)
         field[posx][posy] = '.';
         swap(field[posx][posy + 1], field[posx][posy + 2]);
         field[posx][posy] = '.';
-        randtrail();
         b.zombieMove(numofzom, rows, columns);
         alienattackk += 20;
         cout << "Alien have add 20 attack" << endl;
@@ -156,27 +153,23 @@ void board::movement(int posx, int posy)
     {
         field[posx][posy] = '.';
         a.alienhealth();
-        randtrail();
         b.zombieMove(numofzom, rows, columns);
     }
     else if (field[posx][posy] == 'p')
     {
         field[posx][posy] = '.';
         pod();
-        randtrail();
         b.zombieMove(numofzom, rows, columns);
     }
     else if (field[posx][posy] == 'r')
     {
         field[posx][posy] = '.';
         obsRock();
-        randtrail();
         b.zombieMove(numofzom, rows, columns);
     }
     else if (field[posx][posy] == ' ')
     {
         field[posx][posy] = '.';
-        randtrail();
         b.zombieMove(numofzom, rows, columns);
     }
     else if (field[posx][posy] == '1')
@@ -272,20 +265,6 @@ void board::movement(int posx, int posy)
     }
 }
 
-// void board::zombieDies()
-// {
-
-//     for(int i=0; i<numofzom; ++i)
-//     {
-//         if (zombiehp[i] <= 0)
-//         {
-//             zombiehp[i] = 0;
-//             field[posx][posy] = ' ';
-//             cout << "Zombie" << i << "has been defeated" << endl;
-//         }
-
-//     }
-// }
 
 void board::obsRock()
 {
@@ -319,7 +298,7 @@ void board::obsRock()
 void board::pod()
 {
     cout << "Alien found a pod" << endl;
-    cout << "Zombies lose 10 health " << endl;
+    cout << "Zombies lose 10 health each" << endl;
     cout << "Please press enter to continue..." << endl;
     cin.ignore();
 
@@ -341,12 +320,20 @@ void board::pod()
     cout << "Zombie " << nearest_zombie + 1 << " lost 10 health" << endl;
 }
 
-void board::randtrail()
+void board::randTrail(int rows,int columns)
 {
-    char characters[] = {' ', '^', 'v', '>', '<', 'h', 'p', 'r'};
-    if(field[posx][posy] = '.')
+    char randObj[] = { 'r', 'h', 'p', '<', '>', 'v', '^'};
+    int numofobj = 8;
+    char c = randObj[rand() % numofobj];
+    for (int i = 0; i < rows; i++)
     {
-        field[posx][posy] = characters[rand() % 8]; 
+        for (int j = 0; j < columns; j++)
+        {
+            if (field[i][j] == '.')
+            {
+                field[i][j] = c;
+            }
+        }
     }
 }
 
@@ -649,6 +636,7 @@ void board::commands(int rows, int columns, int zombie)
         swap(field[posx][posy], field[posx - 1][posy]);
         movement(posx, posy);
         gameboard2(rows, columns, zombie);
+        randTrail(rows,columns);
         z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
@@ -658,6 +646,7 @@ void board::commands(int rows, int columns, int zombie)
         swap(field[posx][posy], field[posx + 1][posy]);
         movement(posx, posy);
         gameboard2(rows, columns, zombie);
+        randTrail(rows,columns);
         z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
@@ -667,6 +656,7 @@ void board::commands(int rows, int columns, int zombie)
         swap(field[posx][posy], field[posx][posy - 1]);
         movement(posx, posy);
         gameboard2(rows, columns, zombie);
+        randTrail(rows,columns);
         z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
@@ -676,11 +666,12 @@ void board::commands(int rows, int columns, int zombie)
         swap(field[posx][posy], field[posx][posy + 1]);
         movement(posx, posy);
         gameboard2(rows, columns, zombie);
+        randTrail(rows,columns);
         z.updatezombies(zombie);
         cout << endl;
         commands(rows, columns, zombie);
     }
-    
+
     else if(command == "arrow")
     {
         changearrowdirection();
@@ -692,7 +683,7 @@ void board::commands(int rows, int columns, int zombie)
         cout << endl;
         commands(rows, columns, zombie);
     }
-    
+
     else
     {
         cout << "--------------------------------------------------" << endl;
@@ -832,4 +823,3 @@ int main()
         main();
     }
 }
-
