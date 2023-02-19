@@ -10,20 +10,26 @@ Please provide the YouTube link to your [Video Demo](https://youtube.com).
 
 List all the features completed.
 
-1. Cool Feature #1
-2. Cool Feature #2
-3. *add more*
-
+Completed requiremnets
+1) 6.2. Game board
+2) 6.3. Game Characters
+    a) 6.3.1.Attributes
+    b) 6.3.2.Movement and Attack
+    c) 6.3.3.Multiple Zombies
+2) 6.4.Game Objects
+3) 6.5.Game Controls
+    a)6.5.1.Saving and Loading Game File
+4) 6.6.Game Flow
 ### To Do
 
 List all the features not yet done. Remove this section if there is no incomplete requirements.
 
-1. Cool Feature #1
-2. *add more*
-
+1)The zombie attack alien part
+2)Zombie can't move every times during its turn.
+2) The pod part, pod can't attack the nearest zombie
 ## Additional Features
 
-Describe the additional features that has been implemented.
+-
 
 ## Contributions
 
