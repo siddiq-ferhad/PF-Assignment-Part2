@@ -12,12 +12,12 @@
 
 To be done requirement
 1) 6.3. Game Characters
-    a)6.3.1.Attributes
-    b)6.3.2.Movement and Attack
-    c)6.3.3.Multiple Zombies
+    a) 6.3.1.Attributes
+    b) 6.3.2.Movement and Attack
+    c) 6.3.3.Multiple Zombies
 2) 6.4. Game Objects
 3) 6.5. Game Controls
-    a)6.5.1.Saving and Loading Game File
+    a) 6.5.1.Saving and Loading Game File
 4) 6.6. Game Flow
 
 ### To Do
