@@ -9,7 +9,7 @@ Alien vs. Zombie is a text-based game inspired by *Alien Path*, with custom modi
 ## 🛠️ Compilation Instructions
 To compile and build the program, run:
 ```sh
-g++ main.cpp -o AlienVsZombie
+g++ main.cpp
 ```
 
 ## 📖 User Manual
