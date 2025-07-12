@@ -1,6 +1,6 @@
 # Alien vs. Zombie
 
-**Alien vs. Zombie** is a **C++ text-based game** developed using standard libraries only. Inspired by *Alien Path*, it combines elements of role-playing, path-planning, puzzles, and strategy. Players control an alien navigating a grid to destroy zombies.
+**Alien vs. Zombie** is a **C++ text-based game** built entirely with standard C++ libraries. Inspired by *Alien Path*, this game combines role-playing, path-planning, puzzle-solving, and strategy into a grid-based battle where players control an Alien tasked with defeating Zombies.
 
 ## 🎥 Video Demo
 
@@ -9,48 +9,58 @@
 
 ## 🛠️ Compilation Instructions
 
-To compile and build the program, run:
+To compile and build the program:
 
 ```sh
 g++ main.cpp
 ```
 
-No external dependencies are required.
+* No external libraries are required.
+* The game runs fully in the console.
 
 ## 📖 User Manual
 
-1. **Start the Game**: Run the program. The default game settings will be displayed:
+### 1. Game Setup
 
-   * Rows = 7, Columns = 7, Zombies = 5
-2. **Customize Settings**: Choose `y` to set custom values for rows, columns, and number of zombies, or `n` to use default settings.
+* When the game starts, default settings are displayed:
 
-   * Rows & columns must be **odd numbers greater than 1**.
-   * Number of zombies must be a **whole number between 1 and 9**.
-3. **Game Board Display**: The board shows:
+  * Rows = 7, Columns = 7, Zombies = 5
+* You can choose to **change settings** or use the **default**:
 
-   * Rows and columns numbered for reference.
-   * Symbols representing various game objects:
+  * Rows & Columns → Must be **odd numbers greater than 1**.
+  * Number of Zombies → Must be **between 1 and 9**.
 
-     * `A` → Alien (you)
-     * `1-9` → Zombies
-     * `^`, `v`, `<`, `>` → Arrows (boost Alien attack and change direction)
-     * `h` → Health pack (+20 HP, max 100)
-     * `p` → Pod (damages nearest Zombie)
-     * `r` → Rock (reveals random object if hit)
-4. **Game Commands**:
+### 2. Game Board Symbols
 
-   * `help` → Displays the guide.
-   * `up`, `down`, `left`, `right` → Move the Alien in that direction.
-   * `arrow` → Change an arrow's direction by specifying row, column, and new direction.
-   * `save` → Save your current game progress.
-   * `load` → Load a previously saved game.
-   * `quit` → Exit the game.
-5. **Gameplay Overview**:
+| Symbol    | Meaning                                 |
+| --------- | --------------------------------------- |
+| `A`       | The Alien (Player)                      |
+| `1-9`     | Zombies                                 |
+| `^ v < >` | Arrows (change direction, +20 Attack)   |
+| `h`       | Health Pack (+20 HP, max 100)           |
+| `p`       | Pod (deals 10 damage to nearest Zombie) |
+| `r`       | Rock (reveals object, blocks Alien)     |
 
-   * Alien moves first; Zombies follow.
-   * Alien attack is temporary and resets after each move.
-   * Zombie attack range scales with board size.
-   * The game ends when the Alien dies (lose) or all Zombies are defeated (win).
+### 3. Game Commands
+
+* `help` → Display the guide.
+* `up`, `down`, `left`, `right` → Move the Alien.
+* `arrow` → Change an arrow's direction by entering its row, column, and new direction (`up`, `down`, `left`, `right`).
+* `save` → Save the game to a file.
+* `load` → Load a saved game from a file.
+* `quit` → Exit the game.
+
+### 4. Game Flow
+
+* The game alternates turns:
+
+  * **Alien's Turn** → Slide until stopped by a wall, rock, or zombie. Attack damage is **accumulated temporarily** and resets after the turn.
+  * **Zombies' Turn** → Each living zombie moves one step and attacks if the Alien is within range.
+* **Zombie attack range** is **dynamic**: it scales with the board size to ensure fair challenge.
+* The game ends when:
+
+  * All Zombies are defeated → **You win!**
+  * The Alien's HP reaches zero → **You lose!**
 
 ## 📜 Progress Log
 
